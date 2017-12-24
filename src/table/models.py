@@ -21,17 +21,16 @@ class Card(models.Model):
 
 class AbstractCardResource(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
     count = models.IntegerField()
 
     class Meta:
         abstract = True
 
 class NeedsCardResource(AbstractCardResource):
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
     class Meta:
          unique_together = ('card', 'resource')
 
 class GivesCardResource(AbstractCardResource):
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
     class Meta:
          unique_together = ('card', 'resource')
