@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block body_content_class %}with_sidebar{% endblock %}
+
+{% block content %}
+Hello {{user}},
+<a href="{% url 'users:logout' %}">Выход</a>
+<br/>
+Inventory: {{ inventory }}<br/>
+Score: {{ score }}<br/>
+<table border="1"><tr>
+  {% for card in cards %}
+    <td>
+      Задача {{card.name}} ({{card.ejudge_short_name}})<br/>
+      needs: {{card.needs}}<br/>
+      gives: {{card.gives}}<br/>
+      score: {{card.score}}<br/>
+      status: {{card.problem_status.state}} at {{card.problem_status.time}}<br/>
+      available: {{card.available}}<br/>
+    </td>    
+  {% endfor %}
+</tr></table>
+<br/><br/>
+Debug: {{ debug }}<br/>
+{% endblock %}
