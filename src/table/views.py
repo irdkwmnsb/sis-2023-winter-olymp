@@ -21,8 +21,8 @@ def index(request):
         if card.problem_status.state == ProblemState.SOLVED:
             add_to_dict(card.get_gives(), inventory)
             score += card.score
-        card.needs_str = [ncr.resource.name + '×' + str(ncr.count) for ncr in card.get_needs()]
-        card.gives_str = [ncr.resource.name + '×' + str(ncr.count) for ncr in card.get_gives()]
+        card.needs_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_needs()]
+        card.gives_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_gives()]
 
     for card in cards:
         card.available = is_subset(create_dict(card.get_needs()), inventory)
@@ -41,8 +41,8 @@ def create_dict(card_resources):
     return result
 
 def add_to_dict(card_resources, inventory):
-    for r in card_resources.all():
-       inventory[r.resource.name] = inventory.get(r.resource.name, 0) + r.count
+    for cr in card_resources.all():
+       inventory[cr.resource.name] = inventory.get(cr.resource.name, 0) + cr.count
     return inventory
 
 def is_subset(requirements, inventory):
