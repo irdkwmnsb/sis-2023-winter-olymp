@@ -14,8 +14,8 @@ Score: {{ score }}<br/>
   {% for card in cards %}
     <td>
       Задача {{card.name}} ({{card.ejudge_short_name}})<br/>
-      needs: {{card.needs}}<br/>
-      gives: {{card.gives}}<br/>
+      needs: {{card.needs_str}}<br/>
+      gives: {{card.gives_str}}<br/>
       score: {{card.score}}<br/>
       status: {{card.problem_status.state}} at {{card.problem_status.time}}<br/>
       available: {{card.available}}<br/>
