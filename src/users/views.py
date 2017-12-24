@@ -35,7 +35,7 @@ def login(request):
             if is_correct:
                 user = get_user_or_create(login, password, ejudge_user_id)
                 auth.login(request, user)
-                return redirect('map:index')
+                return redirect('table:index')
             form.add_error('password', 'Неверный пароль')
     else:
         form = forms.LoginForm()
@@ -45,4 +45,4 @@ def login(request):
 # TODO: only POST
 def logout(request):
     auth.logout(request)
-    return redirect('map:index')
+    return redirect('table:index')
