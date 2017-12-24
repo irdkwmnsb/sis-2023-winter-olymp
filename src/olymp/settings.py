@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     'ejudge',
     'users',
-    'monitor',
     'table',
 ]
 
