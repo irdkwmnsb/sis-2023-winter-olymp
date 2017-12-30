@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http.response import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render
-from table.models import *
-from enum import Enum
 
+from enum import Enum
+import collections
+
+from table.models import *
 from ejudge.database import EjudgeDatabase, RunStatus
 from ejudge.models import Contest
 from . import models
-
 
 
 def get_contest(user):
@@ -17,6 +18,7 @@ def get_contest(user):
         if user.startswith(contest.login_prefix):
             return contest
     return contest
+
 
 class CountryStatus:
     total = 0
@@ -36,6 +38,7 @@ def index(request):
 
     return render(request, 'table/table.html', get_user_result(user, contest, problem_statuses))
 
+
 @login_required
 def monitor(request):
     problem_statuses_by_user = load_from_ejudge_runs()
@@ -46,8 +49,9 @@ def monitor(request):
         monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
 
     return render(request, 'table/monitor.html', {
-                    'monitor': sorted(monitor, key=lambda x: (-x[0], x[1])),
-                    })   
+        'monitor': sorted(monitor, key=lambda x: (-x[0], x[1])),
+    })
+
 
 def read_statement(request, problem_id):
     user = request.user
@@ -67,6 +71,7 @@ def read_statement(request, problem_id):
         statement_content = statement_file.read()
         return HttpResponse(statement_content, content_type='application/pdf')
 
+
 class CardStatus:
     problem_status = None
     card = None
@@ -74,10 +79,11 @@ class CardStatus:
     gives_str = None
     available = False
 
+
 def get_user_result(user, contest, problem_statuses):
     cards = models.Card.objects.filter(contest=contest).all()
 
-    inventory = {}
+    inventory = collections.defaultdict(int)
     score = 0
 
     country_statuses = {}
@@ -116,7 +122,9 @@ def get_user_result(user, contest, problem_statuses):
     card_statuses_by_level = [[] for i in range(6)]
     for card_status in card_statuses.values():
         card_statuses_by_level[card_status.card.level].append(card_status)
-        
+
+    resources = list(models.Resource.objects.all())
+
     return {
         'inventory': inventory,
         'score': score,
@@ -125,17 +133,21 @@ def get_user_result(user, contest, problem_statuses):
         'card_statuses_by_level': card_statuses_by_level,
         'country_statuses': country_statuses,
         'debug': country_statuses,
+        'resources': resources,
     }
+
 
 def create_dict(card_resources):
     result = {}
     add_to_dict(card_resources, result)
     return result
 
+
 def add_to_dict(card_resources, inventory):
     for cr in card_resources.all():
-       inventory[cr.resource.name] = inventory.get(cr.resource.name, 0) + cr.count
+        inventory[cr.resource.id] = inventory.get(cr.resource.id, 0) + cr.count
     return inventory
+
 
 def is_subset(requirements, inventory):
     for resource, needs in requirements.items():
@@ -149,12 +161,14 @@ class ProblemState(Enum):
     ATTEMPTED = 1
     SOLVED = 2
 
+
 class ProblemStatus:
     state = ProblemState.NOT_ATTEMPTED
     time = 0
 
     def __repr__(self):
         return str(self.__dict__)
+
 
 def load_from_ejudge_runs(user=None):
     contest = Contest(settings.EJUDGE_SERVE_CFG)
@@ -178,6 +192,6 @@ def load_from_ejudge_runs(user=None):
             problem_status.state = ProblemState.SOLVED
             problem_status.time = run.time
         elif problem_status.state != ProblemState.SOLVED:
-            problem_status.state = ProblemState.ATTEMPTED 
+            problem_status.state = ProblemState.ATTEMPTED
             problem_status.time = run.time
     return problems_by_user

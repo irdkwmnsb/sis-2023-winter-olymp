@@ -87,9 +87,9 @@ DATABASES = {
     'ejudge': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ejudgedata',
-        'USER': 'sis_ny_olymp',
-        'PASSWORD': 'JDY8x8mPE7y5Nc7C',
-        'HOST': 'localhost',
+        'USER': 'olymp_winter2017',
+        'PASSWORD': '0X62t2gvyJzCW0y15znA',
+        'HOST': 'ejudge.lksh.ru',
         'PORT': '3306',
     }
 }
@@ -160,5 +160,5 @@ CONTEST_DURATION = 240
 
 MAXIMUM_PENALTY = 0.7
 
-TELEGRAM_BOT_TOKEN = ''
-TELEGRAM_CHAT_ID = 0
+TELEGRAM_BOT_TOKEN = '289508209:AAHKZbNXzVTAzqGs67M_2X9TDpuAQT7_zF0'
+TELEGRAM_CHAT_ID = -1001074781896

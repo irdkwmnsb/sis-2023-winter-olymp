@@ -1,0 +1,17 @@
+@font-face {
+	font-family: 'Bahnschrift';
+	src: url('../fonts/bahnschrift.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/bahnschrift.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	     url('../fonts/bahnschrift.woff2') format('woff2'), /* Super Modern Browsers */
+	     url('../fonts/bahnschrift.woff') format('woff'), /* Pretty Modern Browsers */
+	     url('../fonts/bahnschrift.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+	font-family: 'Myriad Pro';
+	src: url('../fonts/MyriadPro.eot'); /* IE9 Compat Modes */
+	src: url('../fonts/MyriadPro.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	     url('../fonts/MyriadPro.woff2') format('woff2'), /* Super Modern Browsers */
+	     url('../fonts/MyriadPro.woff') format('woff'), /* Pretty Modern Browsers */
+	     url('../fonts/MyriadPro.ttf')  format('truetype'); /* Safari, Android, iOS */
+}

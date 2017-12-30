@@ -2,8 +2,6 @@
 
 {% load static %}
 
-{% block body_content_class %}with_sidebar{% endblock %}
-
 {% block content %}
 Hello {{user}},
 <a href="{% url 'users:logout' %}">Выход</a>
