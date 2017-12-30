@@ -29,7 +29,7 @@ class Card(models.Model):
       return GivesCardResource.objects.filter(card=self).all()
 
 class VirtualContest(models.Model):
-    login_regex = models.CharField(max_length=255)
+    login_prefix = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     cards = models.ManyToManyField(Card, related_name='contest')
 

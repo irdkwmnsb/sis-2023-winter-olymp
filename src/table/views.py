@@ -13,8 +13,10 @@ from . import models
 
 
 def get_contest(user):
-    # TODO: fix
-    return models.VirtualContest.objects.all()[0]
+    for contest in models.VirtualContest.objects.all():
+        if user.startswith(contest.login_prefix):
+            return contest
+    return contest
 
 class CountryStatus:
     total = 0
@@ -28,17 +30,19 @@ class CountryStatus:
 @login_required
 def index(request):
     user = request.user
+    contest = get_contest(user.username)
     problem_statuses_by_user = load_from_ejudge_runs(request.user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
 
-    return render(request, 'table/table.html', get_user_result(user, problem_statuses))
+    return render(request, 'table/table.html', get_user_result(user, contest, problem_statuses))
 
 @login_required
 def monitor(request):
     problem_statuses_by_user = load_from_ejudge_runs()
+    contest = get_contest(request.user.username)
     monitor = []
     for user, problem_statuses in problem_statuses_by_user.items():
-        user_result = get_user_result(user, problem_statuses)
+        user_result = get_user_result(user, contest, problem_statuses)
         monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
 
     return render(request, 'table/monitor.html', {
@@ -47,9 +51,10 @@ def monitor(request):
 
 def read_statement(request, problem_id):
     user = request.user
+    contest = get_contest(user.username)
     problem_statuses_by_user = load_from_ejudge_runs(user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
-    user_result = get_user_result(user, problem_statuses)
+    user_result = get_user_result(user, contest, problem_statuses)
     cards = Card.objects.filter(ejudge_short_name=problem_id)
     if len(cards) != 1:
         return HttpResponseNotFound()
@@ -69,8 +74,7 @@ class CardStatus:
     gives_str = None
     available = False
 
-def get_user_result(user, problem_statuses):
-    contest = get_contest(user)
+def get_user_result(user, contest, problem_statuses):
     cards = models.Card.objects.filter(contest=contest).all()
 
     inventory = {}

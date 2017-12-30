@@ -19,10 +19,10 @@ HEADER =\
 """
 from table.models import *
 
-def make_resource(name):
-    resource = Resource(name=name)
-    resource.save()
-    return resource
+def make_resource(**kwargs):
+    tmp = Resource(**kwargs)
+    tmp.save()
+    return tmp
 
 def make_country(**kwargs):
     tmp = Country(**kwargs)
@@ -40,22 +40,22 @@ Country.objects.all().delete()
 VirtualContest.objects.all().delete()
 NeedsCardResource.objects.all().delete()
 NeedsCardResource.objects.all().delete()
-c_junior = VirtualContest(name="Олимпиада B'-C-C'")
+c_junior = VirtualContest(name="Олимпиада B'-C-C'", login_prefix="sis-2017-4")
 c_junior.save()
-c_adult = VirtualContest(name="Олимпиада A-A'-B")
+c_adult = VirtualContest(name="Олимпиада A-A'-B", login_prefix="sis-2017-5")
 c_adult.save()
-r0 = make_resource('Пушка')
-r1 = make_resource('Катапульта')
-r2 = make_resource('Меч')
-r3 = make_resource('Ружьё')
+r0 = make_resource(id=1,name='Пушка')
+r1 = make_resource(id=2,name='Катапульта')
+r2 = make_resource(id=3,name='Меч')
+r3 = make_resource(id=4,name='Ружьё')
 
-gb = make_country(name='gb', bonus=2)
-de = make_country(name='de', bonus=3)
-ch = make_country(name='ch', bonus=4)
+gb = make_country(name='gb', bonus=5)
+de = make_country(name='de', bonus=5)
+ch = make_country(name='ch', bonus=5)
 cz = make_country(name='cz', bonus=5)
-ro = make_country(name='ro', bonus=6)
-it = make_country(name='it', bonus=7)
-fr = make_country(name='fr', bonus=8)
+ro = make_country(name='ro', bonus=5)
+it = make_country(name='it', bonus=5)
+fr = make_country(name='fr', bonus=5)
 """
 
 
