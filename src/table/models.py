@@ -8,7 +8,8 @@ class Resource(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
-
+    bonus = models.PositiveIntegerField()
+    
 class Card(models.Model):
     ejudge_short_name = models.CharField(db_index=True, max_length=255)
     name = models.CharField(max_length=255)

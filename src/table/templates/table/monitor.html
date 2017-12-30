@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block body_content_class %}with_sidebar{% endblock %}
+
+{% block content %}
+Hello {{user}},
+<a href="{% url 'users:logout' %}">Выход</a>
+<br/>
+<table>
+  {% for score, user, details in monitor %}
+    <tr>
+      <td>{{ user }}</td>
+      <td>{{ score }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

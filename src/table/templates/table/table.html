@@ -11,8 +11,8 @@ Hello {{user}},
 Inventory: {{ inventory }}<br/>
 Score: {{ score }}<br/>
 Countries: <ul>
-{% for country in countries.values %}
-<li>{{country.name}}: {{country.solved}} of {{country.total}} </li>
+{% for country_status in country_statuses.values %}
+<li>{{country_status.country.name}}: {{country_status.solved}} of {{country_status.total}}; bonus: {{country_status.country.bonus}} </li>
 {% endfor %}
 </ul>
 <table border="1">
