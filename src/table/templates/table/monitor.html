@@ -9,7 +9,7 @@ Hello {{user}},
 <a href="{% url 'users:logout' %}">Выход</a>
 <br/>
 <table>
-  {% for score, user, details in monitor %}
+  {% for score, last_ok, user, details in monitor %}
     <tr>
       <td>{{ user }}</td>
       <td>{{ score }}</td>

@@ -27,6 +27,7 @@ Countries: <ul>
       score: {{card_status.card.score}}<br/>
       status: {{card_status.problem_status.state}} at {{card_status.problem_status.time}}<br/>
       available: {{card_status.available}}<br/>
+      <a href="/statement/{{card_status.card.ejudge_short_name}}">statement</a>
     </td>    
     {% endfor %}
   </tr>

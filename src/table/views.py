@@ -39,10 +39,10 @@ def monitor(request):
     monitor = []
     for user, problem_statuses in problem_statuses_by_user.items():
         user_result = get_user_result(user, problem_statuses)
-        monitor.append((user_result['score'], user, user_result))
+        monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
 
     return render(request, 'table/monitor.html', {
-                    'monitor': sorted(monitor, reverse=True),
+                    'monitor': sorted(monitor, key=lambda x: (-x[0], x[1])),
                     })   
 
 def read_statement(request, problem_id):
@@ -85,6 +85,7 @@ def get_user_result(user, problem_statuses):
         country_statuses[country.id] = country_status
 
     card_statuses = {}
+    last_ok = 0
     for card in cards:
         card_status = card_statuses.setdefault(card.id, CardStatus())
         card_status.card = card
@@ -97,6 +98,7 @@ def get_user_result(user, problem_statuses):
             add_to_dict(card.get_gives(), inventory)
             score += card.score
             country_status.solved += 1
+            last_ok = max(last_ok, card_status.problem_status.time)
         card_status.needs_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_needs()]
         card_status.gives_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_gives()]
 
@@ -114,6 +116,7 @@ def get_user_result(user, problem_statuses):
     return {
         'inventory': inventory,
         'score': score,
+        'last_ok': last_ok,
         'card_statuses': card_statuses,
         'card_statuses_by_level': card_statuses_by_level,
         'country_statuses': country_statuses,
