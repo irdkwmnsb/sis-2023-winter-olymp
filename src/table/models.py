@@ -12,6 +12,8 @@ class Card(models.Model):
     needs = models.ManyToManyField(Resource, through='NeedsCardResource', related_name='needs+')
     gives = models.ManyToManyField(Resource, through='GivesCardResource', related_name='gives+')
     score = models.PositiveIntegerField()
+    level = models.PositiveIntegerField()
+
     def get_needs(self):
       return NeedsCardResource.objects.filter(card=self).all()
 

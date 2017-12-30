@@ -10,8 +10,10 @@ Hello {{user}},
 <br/>
 Inventory: {{ inventory }}<br/>
 Score: {{ score }}<br/>
-<table border="1"><tr>
-  {% for card in cards %}
+<table border="1">
+  {% for cards in cards_by_level %}
+  <tr>
+    {% for card in cards %}
     <td>
       Задача {{card.name}} ({{card.ejudge_short_name}})<br/>
       needs: {{card.needs_str}}<br/>
@@ -20,8 +22,10 @@ Score: {{ score }}<br/>
       status: {{card.problem_status.state}} at {{card.problem_status.time}}<br/>
       available: {{card.available}}<br/>
     </td>    
+    {% endfor %}
+  </tr>
   {% endfor %}
-</tr></table>
+</table>
 <br/><br/>
 Debug: {{ debug }}<br/>
 {% endblock %}
