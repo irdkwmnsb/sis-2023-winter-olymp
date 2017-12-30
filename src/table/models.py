@@ -19,6 +19,9 @@ class Card(models.Model):
     level = models.PositiveIntegerField()
     country = models.ForeignKey(Country, related_name='cards')
 
+    def get_statement_path(self):
+        return "%s.pdf" % self.ejudge_short_name
+
     def get_needs(self):
       return NeedsCardResource.objects.filter(card=self).all()
 

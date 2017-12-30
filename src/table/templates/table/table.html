@@ -16,17 +16,17 @@ Countries: <ul>
 {% endfor %}
 </ul>
 <table border="1">
-  {% for cards in cards_by_level %}
+  {% for card_statuses in card_statuses_by_level %}
   <tr>
-    {% for card in cards %}
+    {% for card_status in card_statuses %}
     <td>
-      Задача {{card.name}} ({{card.ejudge_short_name}})<br/>
-      country: {{card.country.name}}<br/>
-      needs: {{card.needs_str}}<br/>
-      gives: {{card.gives_str}}<br/>
-      score: {{card.score}}<br/>
-      status: {{card.problem_status.state}} at {{card.problem_status.time}}<br/>
-      available: {{card.available}}<br/>
+      Задача {{card_status.card.name}} ({{card_status.card.ejudge_short_name}})<br/>
+      country: {{card_status.card.country.name}}<br/>
+      needs: {{card_status.needs_str}}<br/>
+      gives: {{card_status.gives_str}}<br/>
+      score: {{card_status.card.score}}<br/>
+      status: {{card_status.problem_status.state}} at {{card_status.problem_status.time}}<br/>
+      available: {{card_status.available}}<br/>
     </td>    
     {% endfor %}
   </tr>

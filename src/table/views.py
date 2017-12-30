@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.http.response import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render
 from table.models import *
 from enum import Enum
@@ -44,6 +45,29 @@ def monitor(request):
                     'monitor': sorted(monitor, reverse=True),
                     })   
 
+def read_statement(request, problem_id):
+    user = request.user
+    problem_statuses_by_user = load_from_ejudge_runs(user)
+    problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
+    user_result = get_user_result(user, problem_statuses)
+    cards = Card.objects.filter(ejudge_short_name=problem_id)
+    if len(cards) != 1:
+        return HttpResponseNotFound()
+    card = cards[0]
+    if not user_result['card_statuses'].get(card.id).available:
+        return HttpResponseForbidden()
+
+    statement_path = card.get_statement_path()
+    with open(statement_path, 'rb') as statement_file:
+        statement_content = statement_file.read()
+        return HttpResponse(statement_content, content_type='application/pdf')
+
+class CardStatus:
+    problem_status = None
+    card = None
+    needs_str = None
+    gives_str = None
+    available = False
 
 def get_user_result(user, problem_statuses):
     contest = get_contest(user)
@@ -60,33 +84,38 @@ def get_user_result(user, problem_statuses):
         country_status.country = country
         country_statuses[country.id] = country_status
 
+    card_statuses = {}
     for card in cards:
-        card.problem_status = problem_statuses.setdefault(card.ejudge_short_name, ProblemStatus())
+        card_status = card_statuses.setdefault(card.id, CardStatus())
+        card_status.card = card
+        card_status.problem_status = problem_statuses.setdefault(card.ejudge_short_name, ProblemStatus())
+
         country_status = country_statuses[card.country.id]
         country_status.total += 1
-        if card.problem_status.state == ProblemState.SOLVED:
+
+        if card_status.problem_status.state == ProblemState.SOLVED:
             add_to_dict(card.get_gives(), inventory)
             score += card.score
             country_status.solved += 1
-        card.needs_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_needs()]
-        card.gives_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_gives()]
+        card_status.needs_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_needs()]
+        card_status.gives_str = [cr.resource.name + '×' + str(cr.count) for cr in card.get_gives()]
 
-    for card in cards:
-        card.available = is_subset(create_dict(card.get_needs()), inventory)
-        card.str = str(create_dict(card.get_needs())) + ' ' + str(inventory)
+    for card_status in card_statuses.values():
+        card_status.available = is_subset(create_dict(card_status.card.get_needs()), inventory)
 
     for country_status in country_statuses.values():
         if country_status.solved >= country_status.total:
             score += country_status.country.bonus
 
-    cards_by_level = [[] for i in range(6)]
-    for card in cards:
-        cards_by_level[card.level].append(card)
+    card_statuses_by_level = [[] for i in range(6)]
+    for card_status in card_statuses.values():
+        card_statuses_by_level[card_status.card.level].append(card_status)
         
     return {
         'inventory': inventory,
         'score': score,
-        'cards_by_level': cards_by_level,
+        'card_statuses': card_statuses,
+        'card_statuses_by_level': card_statuses_by_level,
         'country_statuses': country_statuses,
         'debug': country_statuses,
     }
