@@ -49,37 +49,35 @@ r1 = make_resource(id=2,name='катапульта',name_acc_one='катапул
 r2 = make_resource(id=3,name='меч',name_acc_one='меч',name_acc_two='меча',name_acc_five='мечей')
 r3 = make_resource(id=4,name='ружьё',name_acc_one='ружьё',name_acc_two='ружья',name_acc_five='ружей')
 
-gb = make_country(name='Великобритания', name_gen='Великобритании', bonus=5)
-de = make_country(name='Германия', name_gen='Германии', bonus=5)
-ch = make_country(name='Швейцария', name_gen='Швейцарии', bonus=5)
-cz = make_country(name='Чехия', name_gen='Чехии', bonus=5)
-ro = make_country(name='Румыния', name_gen='Румынии', bonus=5)
-it = make_country(name='Италия', name_gen='Италии', bonus=5)
-fr = make_country(name='Франция', name_gen='Франции', bonus=5)
+gb = make_country(id=1, name='Великобритания', name_gen='Великобритании', bonus=5)
+de = make_country(id=2, name='Германия', name_gen='Германии', bonus=5)
+ch = make_country(id=3, name='Швейцария', name_gen='Швейцарии', bonus=5)
+cz = make_country(id=4, name='Чехия', name_gen='Чехии', bonus=5)
+ro = make_country(id=5, name='Румыния', name_gen='Румынии', bonus=5)
+it = make_country(id=6, name='Италия', name_gen='Италии', bonus=5)
+fr = make_country(id=7, name='Франция', name_gen='Франции', bonus=5)
 """
 
 
 with open('init_script.py', 'w', encoding='utf-8') as output_file:
     print(HEADER, file=output_file)
-#    print('AbstractTile.objects.all().delete()', file=output_file)
     
     with open(INIT_FILE, 'r', encoding='utf-8') as init:
         for line in init:
             if not line.strip():
                 continue
             line = line.strip().split('\t')
-            print(line)
             # gb    07  palindr 2   1010    2201    2   0000    0010    1
-            (country, polygon_id, polygon_shortname, level_src,
+            (photo, country, polygon_id, polygon_shortname, level_src,
                             needs_junior, gives_junior, score_junior,
-                            needs_adult, gives_adult, score_adult)= line[:10]
+                            needs_adult, gives_adult, score_adult)= line[:11]
             for contest, level, needs, gives, score in [
                             ('c_junior', int(level_src), needs_junior, gives_junior, score_junior),
                             ('c_adult', int(level_src) - 1, needs_adult, gives_adult, score_adult)]:
                 if needs == 'xxxx':
                     continue
-                print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s)' % (
-                            polygon_id, polygon_shortname, int(score), level, country), file=output_file)
+                print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s, photo=%d)' % (
+                            polygon_id, polygon_shortname, int(score), level, country, int(photo)), file=output_file)
                 print('%s.cards.add(card)' % (contest), file=output_file);
                 for i in range(0, len(needs)):
                     cnt = int(needs[i])

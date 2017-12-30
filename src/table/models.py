@@ -27,6 +27,7 @@ class Card(models.Model):
     needs = models.ManyToManyField(Resource, through='NeedsCardResource', related_name='needs+')
     gives = models.ManyToManyField(Resource, through='GivesCardResource', related_name='gives+')
     score = models.PositiveIntegerField()
+    photo = models.PositiveIntegerField()
     level = models.PositiveIntegerField()
     country = models.ForeignKey(Country, related_name='cards')
 
