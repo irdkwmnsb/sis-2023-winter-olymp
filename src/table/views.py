@@ -134,6 +134,8 @@ def load_from_ejudge_runs(user=None):
         if run.status == RunStatus.IGNORED:
             continue
         problems = problems_by_user.setdefault(run.user_id, {})
+        if run.problem_id not in contest.problems:
+            continue
         short_name = contest.problems[run.problem_id].short_name
         problem_status = problems.setdefault(short_name, ProblemStatus())
         if run.status == RunStatus.OK:
