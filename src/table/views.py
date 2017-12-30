@@ -28,19 +28,15 @@ class CountryStatus:
 def index(request):
     user = request.user
     problem_statuses_by_user = load_from_ejudge_runs(request.user)
-    print('psby', problem_statuses_by_user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
-    print('ps', problem_statuses)
 
     return render(request, 'table/table.html', get_user_result(user, problem_statuses))
 
 @login_required
 def monitor(request):
     problem_statuses_by_user = load_from_ejudge_runs()
-    print(problem_statuses_by_user)
     monitor = []
     for user, problem_statuses in problem_statuses_by_user.items():
-        print(problem_statuses)
         user_result = get_user_result(user, problem_statuses)
         monitor.append((user_result['score'], user, user_result))
 
@@ -65,7 +61,6 @@ def get_user_result(user, problem_statuses):
         country_statuses[country.id] = country_status
 
     for card in cards:
-        print (problem_statuses)
         card.problem_status = problem_statuses.setdefault(card.ejudge_short_name, ProblemStatus())
         country_status = country_statuses[card.country.id]
         country_status.total += 1
@@ -138,9 +133,7 @@ def load_from_ejudge_runs(user=None):
     for run in runs:
         if run.status == RunStatus.IGNORED:
             continue
-        print(run.user_id)
         problems = problems_by_user.setdefault(run.user_id, {})
-        print (problems)
         short_name = contest.problems[run.problem_id].short_name
         problem_status = problems.setdefault(short_name, ProblemStatus())
         if run.status == RunStatus.OK:
