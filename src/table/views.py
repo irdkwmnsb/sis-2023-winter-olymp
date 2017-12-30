@@ -92,10 +92,16 @@ def make_resource(name):
     resource.save()
     return resource
 
+def make_country(name):
+    tmp = Country(name=name)
+    tmp.save()
+    return tmp
+
 def make_card(**kwargs):
     card = Card(**kwargs)
     card.save()
     return card
+
 def tmp():
     aaa = make_resource('aaa')
     bbb = make_resource('bbb')
@@ -126,94 +132,132 @@ def tmp():
 def initdb(request):
     Resource.objects.all().delete()
     Card.objects.all().delete()
+    Country.objects.all().delete()
+    VirtualContest.objects.all().delete()
     NeedsCardResource.objects.all().delete()
     NeedsCardResource.objects.all().delete()
+    c0 = VirtualContest(name='Contest 0')
+    c0.save()
     r0 = make_resource('r0')
     r1 = make_resource('r1')
     r2 = make_resource('r2')
     r3 = make_resource('r3')
+    en = make_country('en')
+    de = make_country('de')
 
-    card = make_card(ejudge_short_name="02", name="third-buy-discount", score=0, level=1)
+    card = make_card(ejudge_short_name="02", name="third-buy-discount", score=0, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r0, count=1).save()
 
-    card = make_card(ejudge_short_name="03", name="digital-display", score=1, level=1)
+    card = make_card(ejudge_short_name="03", name="digital-display", score=1, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r1, count=1).save()
 
-    card = make_card(ejudge_short_name="04", name="dessert-maker", score=0, level=1)
+    card = make_card(ejudge_short_name="04", name="dessert-maker", score=0, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="05", name="straight-array", score=1, level=1)
+    card = make_card(ejudge_short_name="05", name="straight-array", score=1, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r1, count=1).save()
     GivesCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="12", name="hamming", score=0, level=1)
+    card = make_card(ejudge_short_name="12", name="hamming", score=0, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r0, count=1).save()
     GivesCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="01", name="kek", score=0, level=1)
+    card = make_card(ejudge_short_name="01", name="kek", score=0, level=1, country=en)
+    c0.cards.add(card)
     GivesCardResource(card=card, resource=r0, count=1).save()
 
-    card = make_card(ejudge_short_name="06", name="word-math", score=1, level=2)
+    card = make_card(ejudge_short_name="06", name="word-math", score=1, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r0, count=1).save()
     NeedsCardResource(card=card, resource=r1, count=1).save()
 
-    card = make_card(ejudge_short_name="07", name="palindr", score=1, level=2)
+    card = make_card(ejudge_short_name="07", name="palindr", score=1, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r0, count=1).save()
     NeedsCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="08", name="string-io", score=2, level=2)
+    card = make_card(ejudge_short_name="08", name="string-io", score=2, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r0, count=2).save()
 
-    card = make_card(ejudge_short_name="09", name="gentest", score=1, level=2)
+    card = make_card(ejudge_short_name="09", name="gentest", score=1, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r0, count=1).save()
     NeedsCardResource(card=card, resource=r1, count=1).save()
     NeedsCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="10", name="good-and-bad-postmen", score=2, level=2)
+    card = make_card(ejudge_short_name="10", name="good-and-bad-postmen", score=2, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r1, count=1).save()
 
-    card = make_card(ejudge_short_name="11", name="crosses", score=2, level=2)
+    card = make_card(ejudge_short_name="11", name="crosses", score=2, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r2, count=2).save()
 
-    card = make_card(ejudge_short_name="31", name="highway", score=2, level=2)
+    card = make_card(ejudge_short_name="31", name="highway", score=2, level=2, country=en)
+    c0.cards.add(card)
     NeedsCardResource(card=card, resource=r0, count=1).save()
     NeedsCardResource(card=card, resource=r1, count=1).save()
     NeedsCardResource(card=card, resource=r2, count=1).save()
 
-    card = make_card(ejudge_short_name="13", name="governor", score=0, level=3)
+    card = make_card(ejudge_short_name="13", name="governor", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="19", name="substring", score=0, level=3)
+    card = make_card(ejudge_short_name="19", name="substring", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="20", name="hol", score=0, level=3)
+    card = make_card(ejudge_short_name="20", name="hol", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="21", name="anti", score=0, level=3)
+    card = make_card(ejudge_short_name="21", name="anti", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="25", name="twohoses", score=0, level=3)
+    card = make_card(ejudge_short_name="25", name="twohoses", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="26", name="rube-goldberg", score=0, level=3)
+    card = make_card(ejudge_short_name="26", name="rube-goldberg", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="27", name="distinct-dice", score=0, level=3)
+    card = make_card(ejudge_short_name="27", name="distinct-dice", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="28", name="divisibility", score=0, level=3)
+    card = make_card(ejudge_short_name="28", name="divisibility", score=0, level=3, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="14", name="theorem", score=0, level=4)
+    card = make_card(ejudge_short_name="14", name="theorem", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="15", name="epig", score=0, level=4)
+    card = make_card(ejudge_short_name="15", name="epig", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="16", name="trenches", score=0, level=4)
+    card = make_card(ejudge_short_name="16", name="trenches", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="17", name="lateagain", score=0, level=4)
+    card = make_card(ejudge_short_name="17", name="lateagain", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="18", name="ineq", score=0, level=4)
+    card = make_card(ejudge_short_name="18", name="ineq", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="23", name="queen", score=0, level=4)
+    card = make_card(ejudge_short_name="23", name="queen", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="24", name="protect", score=0, level=4)
+    card = make_card(ejudge_short_name="24", name="protect", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="29", name="pending-tasks", score=0, level=4)
+    card = make_card(ejudge_short_name="29", name="pending-tasks", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="30", name="warehouse-job", score=0, level=4)
+    card = make_card(ejudge_short_name="30", name="warehouse-job", score=0, level=4, country=en)
+    c0.cards.add(card)
 
-    card = make_card(ejudge_short_name="22", name="morpher", score=0, level=5)
+    card = make_card(ejudge_short_name="22", name="morpher", score=0, level=5, country=en)
+    c0.cards.add(card)
 
+    c0.save()
     return HttpResponse("Loaded.")

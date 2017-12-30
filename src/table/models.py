@@ -6,6 +6,9 @@ import djchoices
 class Resource(models.Model):
     name = models.CharField(max_length=255)
 
+class Country(models.Model):
+    name = models.CharField(max_length=255)
+
 class Card(models.Model):
     ejudge_short_name = models.CharField(db_index=True, max_length=255)
     name = models.CharField(max_length=255)
@@ -13,6 +16,7 @@ class Card(models.Model):
     gives = models.ManyToManyField(Resource, through='GivesCardResource', related_name='gives+')
     score = models.PositiveIntegerField()
     level = models.PositiveIntegerField()
+    country = models.ForeignKey(Country, related_name='cards')
 
     def get_needs(self):
       return NeedsCardResource.objects.filter(card=self).all()
@@ -20,6 +24,10 @@ class Card(models.Model):
     def get_gives(self):
       return GivesCardResource.objects.filter(card=self).all()
 
+class VirtualContest(models.Model):
+    login_regex = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    cards = models.ManyToManyField(Card, related_name='contest')
 
 class AbstractCardResource(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)

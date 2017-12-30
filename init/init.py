@@ -28,10 +28,11 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
             line = line.strip().split()
             print(line)
             # 01 kek 1 0000 1000 0
-            polygon_id, polygon_shortname, level, needs, gives, score = line[:6]
+            contest_id, country, polygon_id, polygon_shortname, level, needs, gives, score = line[:8]
 
-            print('    card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d)' % (
-                            polygon_id, polygon_shortname, int(score), int(level)), file=output_file)
+            print('    card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s)' % (
+                            polygon_id, polygon_shortname, int(score), int(level), country), file=output_file)
+            print('    c%d.cards.add(card)'  %(int(contest_id)), file=output_file);
             for i in range(0, len(needs)):
                 cnt = int(needs[i])
                 if cnt > 0:
@@ -41,6 +42,7 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
                 if cnt > 0:
                     print ('    GivesCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
             print ('', file=output_file)
+        print ('    c0.save()', file=output_file)
         print ('    return HttpResponse("Loaded.")', file=output_file)
 
     

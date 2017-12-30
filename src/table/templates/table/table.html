@@ -16,6 +16,7 @@ Score: {{ score }}<br/>
     {% for card in cards %}
     <td>
       Задача {{card.name}} ({{card.ejudge_short_name}})<br/>
+      country: {{card.country.name}}<br/>
       needs: {{card.needs_str}}<br/>
       gives: {{card.gives_str}}<br/>
       score: {{card.score}}<br/>
