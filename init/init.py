@@ -67,7 +67,7 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
         for line in init:
             if not line.strip():
                 continue
-            line = line.strip().split()
+            line = line.strip().split('\t')
             print(line)
             # gb    07  palindr 2   1010    2201    2   0000    0010    1
             (country, polygon_id, polygon_shortname, level_src,
