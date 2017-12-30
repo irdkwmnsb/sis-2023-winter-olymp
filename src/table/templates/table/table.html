@@ -10,6 +10,11 @@ Hello {{user}},
 <br/>
 Inventory: {{ inventory }}<br/>
 Score: {{ score }}<br/>
+Countries: <ul>
+{% for country in countries.values %}
+<li>{{country.name}}: {{country.solved}} of {{country.total}} </li>
+{% endfor %}
+</ul>
 <table border="1">
   {% for cards in cards_by_level %}
   <tr>
