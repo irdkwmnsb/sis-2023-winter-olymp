@@ -1,33 +1,33 @@
-0	cz	04	dessert-maker	1	0000	0010	0
-0	ch	12	hamming	1	0000	1010	0
-0	fr	02	third-buy-discount	1	0000	1000	0
-0	fr	03	digital-display	1	0000	0100	1
-0	de	01	kek	1	0000	1000	0
-0	de	05	straight-array	1	0000	0110	1
-							
-0	gb	07	palindr	2	1010	0000	1
-0	ch	06	word-math	2	1100	0000	1
-0	cz	09	gentest	2	1110	0000	1
-0	fr	11	crosses	2	0020	0000	2
-0	de	10	good-and-bad-postmen	2	0100	0000	2
-0	it	08	string-io	2	2000	0000	2
-0	it	31	highway	2	1110	0000	2
-							
-0	gb	13	governor	3	0000	0000	0
-0	gb	28	divisibility	3	0000	0000	0
-0	ro	27	distinct-dice	3	0000	0000	0
-0	ro	21	anti	3	0000	0000	0
-0	de	19	substring	3	0000	0000	0
-0	fr	26	rube-goldberg	3	0000	0000	0
-0	it	20	hol	3	0000	0000	0
-0	it	25	twohoses	3	0000	0000	0
-							
-0	gb	23	queen	4	0000	0000	0
-0	gb	30	warehouse-job	4	0000	0000	0
-0	ro	14	theorem	4	0000	0000	0
-0	ro	17	lateagain	4	0000	0000	0
-0	cz	15	epig	4	0000	0000	0
-0	cz	24	protect	4	0000	0000	0
-0	cz	16	trenches	4	0000	0000	0
-0	ch	29	pending-tasks	4	0000	0000	0
-0	ch	18	ineq	4	0000	0000	0
+cz	04	dessert-maker	1	0000	0010	1	xxxx	xxxx	x	1_Чехия_Кршивоклат.jpg	Státní hrad Křivoklát
+ch	12	hamming	1	0000	1010	0	xxxx	xxxx	x	ch_shato_de_la_botiaz.webp	Château de La Bâtiaz
+fr	02	third-buy-discount	1	0000	1000	0	xxxx	xxxx	x	fr_chateau_de_najac.jpg	Château de Najac
+fr	03	digital-display	1	0000	0100	1	xxxx	xxxx	x	fr_chato_danjony.jpg	Château d'Anjony
+de	01	kek	1	0000	1000	1	xxxx	xxxx	x	ger_hohenschwangau.jpg	Schloß Hohenschwangau
+de	05	straight-array	1	0000	0110	0	xxxx	xxxx	x	ger_hohenzollern.webp	Burg Hohenzollern
+											
+gb	07	palindr	2	1010	2201	2	0000	0010	1	1_Англия_ Бодиам.jpg	Bodiam Castle
+ch	06	word-math	2	1100	1211	1	0000	1010	0	ch_chillon.jpg	Château de Chillon
+cz	09	gentest	2	1110	0221	2	0000	1000	0	1_Чехия_Орлик.jpg	Zámek Orlík
+fr	11	crosses	2	0030	2111	2	0000	0100	1	fr_commarque.JPG	Château de Commarque
+de	10	good-and-bad-postmen	2	0110	1201	3	0000	1000	1	ger_loewenburg.jpg	Löwenburg Kassel
+it	08	string-io	2	2000	0031	1	0000	0110	0	it_miramare.jpeg	Castello di Miramare
+it	31	highway	2	1110	3001	2	0000	1100	0	it_valentiono.jpg	Castello del Valentino
+ch	18	ineq	2	1110	1001	4	0000	1110	2	ch_valere.jpg	Basilique de Valère
+											
+gb	13	governor	3	0004	1100	5	1010	2201	2	1_Англия_Warwick.jpg	Warwick Castle
+gb	28	divisibility	3	5552	1010	4	1100	1211	1	1_Англия_Лидс.jpg	Leeds Castle
+ro	27	distinct-dice	3	6543	1001	5	1110	0221	2	1_Румыния_Дева.jpg	Cetatea Devei
+ro	21	anti	3	4732	0110	4	0030	2111	2	1_Румыния_Пелеш.jpg	Castelul Peleş
+de	19	substring	3	6642	0101	4	0110	1201	3	ger_eltz.jpg	Burg Eltz
+fr	26	rube-goldberg	3	6452	0011	3	2000	0031	1	fr_hohkönigsburg.jpeg	Hohkönigsburg
+it	20	hol	3	5551	0002	3	1110	3001	2	it_scaligero.jpg	Castello Scaligero
+it	25	twohoses	3	4471	0002	4	1110	0002	1	it_sfortsa.jpg	Castello Sforzesco
+											
+gb	23	queen	4	xxxx	xxxx	x	0004	1100	5	1_Англия_ Алнвик.jpg	Alnwick Castle
+gb	30	warehouse-job	4	xxxx	xxxx	x	5552	1010	4	1_Англия_Раглан.jpg	Castell Rhaglan
+ro	14	theorem	4	xxxx	xxxx	x	6543	1001	5	1_Румыния_Бран.jpg	Castelul Bran
+ro	17	lateagain	4	xxxx	xxxx	x	4732	0110	4	1_Румыния_Поенари.jpg	Cetatea Poenari
+cz	15	epig	4	xxxx	xxxx	x	6642	0101	4	1_Чехия_ Глубока-над-Влтавой.jpg	Zámek Hluboká
+cz	24	protect	4	xxxx	xxxx	x	6452	0011	3	1_Чехия_Karlshteyn.jpg	Hrad Karlštejn
+cz	16	trenches	4	xxxx	xxxx	x	5551	0002	3	1_Чехия_Бузов.jpg	Hrad Búzov
+ch	29	pending-tasks	4	xxxx	xxxx	x	4471	0002	4	ch_turbiyon.jpg	Château de Tourbillon

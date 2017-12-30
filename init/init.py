@@ -40,12 +40,14 @@ Country.objects.all().delete()
 VirtualContest.objects.all().delete()
 NeedsCardResource.objects.all().delete()
 NeedsCardResource.objects.all().delete()
-c0 = VirtualContest(name='Contest 0')
-c0.save()
-r0 = make_resource('r0')
-r1 = make_resource('r1')
-r2 = make_resource('r2')
-r3 = make_resource('r3')
+c_junior = VirtualContest(name="Олимпиада B'-C-C'")
+c_junior.save()
+c_adult = VirtualContest(name="Олимпиада A-A'-B")
+c_adult.save()
+r0 = make_resource('Пушка')
+r1 = make_resource('Катапульта')
+r2 = make_resource('Меч')
+r3 = make_resource('Ружьё')
 
 gb = make_country(name='gb', bonus=2)
 de = make_country(name='de', bonus=3)
@@ -67,28 +69,26 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
                 continue
             line = line.strip().split()
             print(line)
-            # 01 kek 1 0000 1000 0
-            contest_id, country, polygon_id, polygon_shortname, level, needs, gives, score = line[:8]
-
-            print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s)' % (
-                            polygon_id, polygon_shortname, int(score), int(level), country), file=output_file)
-            print('c%d.cards.add(card)'  %(int(contest_id)), file=output_file);
-            for i in range(0, len(needs)):
-                cnt = int(needs[i])
-                if cnt > 0:
-                    print ('NeedsCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
-            for i in range(0, len(gives)):
-                cnt = int(gives[i])
-                if cnt > 0:
-                    print ('GivesCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
-            print ('', file=output_file)
-        print ('c0.save()', file=output_file)
-
-    
-#            parameters = 'row=%d, column=%d, ejudge_short_name="%02d", name="%s", statement_file_name="%02d.pdf", automatic_open_time=%d' % \
-#                (int(row), int(column), int(polygon_id), get_problem_name(polygon_shortname), int(polygon_id), int(open_time)) 
-#    
-#            if bonus == '':
-#                parameters += ', solved_award=%d, wrong_penalty=%d' % (int(award), int(award) // 20)
-#
-#            print('%s(%s).save()' % (class_name, parameters), file=output_file)
+            # gb    07  palindr 2   1010    2201    2   0000    0010    1
+            (country, polygon_id, polygon_shortname, level_src,
+                            needs_junior, gives_junior, score_junior,
+                            needs_adult, gives_adult, score_adult)= line[:10]
+            for contest, level, needs, gives, score in [
+                            ('c_junior', int(level_src), needs_junior, gives_junior, score_junior),
+                            ('c_adult', int(level_src) - 1, needs_adult, gives_adult, score_adult)]:
+                if needs == 'xxxx':
+                    continue
+                print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s)' % (
+                            polygon_id, polygon_shortname, int(score), level, country), file=output_file)
+                print('%s.cards.add(card)' % (contest), file=output_file);
+                for i in range(0, len(needs)):
+                    cnt = int(needs[i])
+                    if cnt > 0:
+                        print ('NeedsCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
+                for i in range(0, len(gives)):
+                    cnt = int(gives[i])
+                    if cnt > 0:
+                        print ('GivesCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
+                print ('', file=output_file)
+        print ('c_junior.save()', file=output_file)
+        print ('c_adult.save()', file=output_file)
