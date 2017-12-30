@@ -70,8 +70,17 @@ class EjudgeDatabase:
             return user['password'] == base64.b64encode(password.encode()).decode()
         elif user['pwdmethod'] == 2:
             return user['password'] == hashlib.sha1(password.encode()).hexdigest()
+        elif user['pwdmethod'] == 3:
+            return user['password'] == self._ejudge_sha256_hash(user['password'], password)
         else:
             raise Exception('Unsupported pwdmethod: %s' % str(user['pwdmethod']))
+
+    @staticmethod
+    def _ejudge_sha256_hash(stored_password, password):
+        salt = stored_password[:4]
+        concatenated = salt + password
+        sha256hash = hashlib.sha256(concatenated.encode()).digest()
+        return salt + base64.b64encode(sha256hash).decode()
 
     def get_user_by_login(self, login):
         cursor = self.connection.cursor()
