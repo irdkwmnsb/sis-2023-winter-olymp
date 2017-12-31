@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http.response import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render
@@ -14,11 +15,11 @@ from ejudge.models import Contest
 from . import models
 
 
-def get_contest(user):
+def get_contest(user, default_contest_id=-1):
     for contest in models.VirtualContest.objects.all():
         if user.startswith(contest.login_prefix):
             return contest
-    return contest
+    return VirtualContest.objects.filter(id=default_contest_id).first()
 
 
 class CountryStatus:
@@ -41,16 +42,26 @@ def index(request):
 
 
 @login_required
-def monitor(request):
+def monitor(request, contest_id=-1):
+    print('contest_id = ', contest_id)
+    contest = get_contest(request.user.username, contest_id)
+    if contest is None:
+        return HttpResponseForbidden()
+
     problem_statuses_by_user = load_from_ejudge_runs()
-    contest = get_contest(request.user.username)
+    users_names = { u.info.ejudge_user_id: u.username
+                    for u in User.objects.all()}
     monitor = []
     for user, problem_statuses in problem_statuses_by_user.items():
+        user_login = users_names.get(user, '')
+        if not user_login.startswith(contest.login_prefix):
+            continue
         user_result = get_result(contest, problem_statuses)
         monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
 
     return render(request, 'table/monitor.html', {
         'monitor': sorted(monitor, key=lambda x: (-x[0], x[1])),
+        'contest': contest,
     })
 
 
