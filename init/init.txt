@@ -8,21 +8,21 @@
 8	ro	22	Castelul Corvinilor	1	0000	0110	0	xxxx	xxxx	x	ones	1_Румыния_Корвинов.jpg
 												
 10	gb	7	Bodiam Castle	2	1010	0101	2	0000	0100	1	palindr	1_Англия_ Бодиам.jpg
-11	ch	6	Château de Chillon	2	1100	0111	1	0000	1010	0	word-math	ch_chillon.jpg
-12	cz	9	Zámek Orlík	2	1110	0021	2	0000	1100	0	gentest	1_Чехия_Орлик.jpg
-13	fr	11	Château de Commarque	2	0300	0111	2	0000	0100	1	crosses	fr_commarque.JPG
+11	ch	6	Château de Chillon	2	1200	0111	1	0000	1010	0	word-math	ch_chillon.jpg
+12	cz	9	Zámek Orlík	2	2110	0021	2	0000	1100	0	gentest	1_Чехия_Орлик.jpg
+13	fr	11	Château de Commarque	2	0200	0111	2	0000	0100	1	crosses	fr_commarque.JPG
 14	de	10	Löwenburg Kassel	2	0110	1002	3	0000	1000	1	good-and-bad-postmen	ger_loewenburg.jpg
 15	it	8	Castello di Miramare	2	2000	0021	1	0000	0100	0	string-io	it_miramare.jpeg
-16	it	31	Castello del Valentino	2	1110	0012	2	0000	1000	0	highway	it_valentiono.jpg
+16	it	31	Castello del Valentino	2	1310	0012	2	0000	1000	0	highway	it_valentiono.jpg
 26	it	25	Castello Sforzesco	2	1100	0021	2	0000	0110	0	twohoses	it_sfortsa.jpg
 												
 19	gb	13	Warwick Castle	3	0007	1100	5	1010	0101	2	governor	1_Англия_Warwick.jpg
-20	gb	28	Leeds Castle	3	0552	1010	4	1100	0111	1	divisibility	1_Англия_Лидс.jpg
-21	ro	27	Cetatea Devei	3	4043	1001	5	1110	0021	2	distinct-dice	1_Румыния_Дева.jpg
-22	ro	21	Castelul Peleş	3	0732	0110	4	0300	0111	2	anti	1_Румыния_Пелеш.jpg
+20	gb	28	Leeds Castle	3	0552	1010	4	1200	0111	1	divisibility	1_Англия_Лидс.jpg
+21	ro	27	Cetatea Devei	3	4043	1001	5	2110	0021	2	distinct-dice	1_Румыния_Дева.jpg
+22	ro	21	Castelul Peleş	3	0732	0110	4	0200	0111	2	anti	1_Румыния_Пелеш.jpg
 23	de	19	Burg Eltz	3	4042	0101	4	0110	1002	3	substring	ger_eltz.jpg
 24	fr	26	Hohkönigsburg	3	0452	0011	3	2000	0021	1	rube-goldberg	fr_hohkönigsburg.jpeg
-25	it	20	Castello Scaligero	3	3054	0002	3	1110	0012	2	hol	it_scaligero.jpg
+25	it	20	Castello Scaligero	3	3054	0002	3	1310	0012	2	hol	it_scaligero.jpg
 17	ch	18	Basilique de Valère	3	0452	0002	4	1100	0021	1	ineq	ch_valere.jpg
 												
 28	gb	23	Alnwick Castle	4	xxxx	xxxx	x	0007	1100	5	fractal	1_Англия_ Алнвик.jpg
