@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 from enum import Enum
 import collections
+import datetime
 
 from table.models import *
 from ejudge.database import EjudgeDatabase, RunStatus
@@ -124,6 +125,8 @@ def get_result(contest, problem_statuses):
         card_statuses_by_level[card_status.card.level].append(card_status)
 
     resources = list(models.Resource.objects.all())
+    ejudge_contest = Contest(settings.EJUDGE_SERVE_CFG)
+    contest_started = datetime.datetime.now() >= ejudge_contest.start_time
 
     return {
         'inventory': inventory,
@@ -132,9 +135,10 @@ def get_result(contest, problem_statuses):
         'card_statuses': card_statuses,
         'card_statuses_by_level': card_statuses_by_level,
         'country_statuses': country_statuses,
-        'debug': country_statuses,
+        'debug': contest_started,
         'resources': resources,
         'ProblemState': ProblemState,
+        'contest_started': contest_started,
     }
 
 
