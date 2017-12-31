@@ -28,7 +28,8 @@ def times(number):
 @register.filter
 def age(value):
     now = datetime.datetime.now(datetime.timezone.utc)
-    value = datetime.datetime.fromtimestamp(value, datetime.timezone.utc)
+    # FIX BUG ON OUR EJUDGE SERVER: TIME DESYNCHRONIZATION FOR ONE HOUR :(
+    value = datetime.datetime.fromtimestamp(value, datetime.timezone.utc) + datetime.timedelta(hours=1)
     try:
         difference = now - value
     except:
