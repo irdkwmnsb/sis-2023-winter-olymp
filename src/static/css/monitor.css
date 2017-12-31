@@ -12,3 +12,7 @@
 	text-align: left;
 	padding: 2px 10px;
 }
+
+.monitor .last-accepted-time {
+    color: #ccc;
+}

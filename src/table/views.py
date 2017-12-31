@@ -39,9 +39,6 @@ def index(request):
     problem_statuses_by_user = load_from_ejudge_runs(user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
 
-    print('ejudge user id', user.info.ejudge_user_id)
-    print('problem_statuses_by_user', problem_statuses_by_user)
-
     return render(request, 'table/table.html', get_result(contest, problem_statuses))
 
 
@@ -112,8 +109,6 @@ class CardStatus:
 
 
 def get_result(contest, problem_statuses):
-    print('contest', contest)
-    print(problem_statuses)
     cards = models.Card.objects.filter(contest=contest).all()
 
     inventory = collections.defaultdict(int)

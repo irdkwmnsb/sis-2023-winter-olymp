@@ -21,6 +21,7 @@
                         {% endwith %}
                     {% endfor %}
 					<th>Очки</th>
+                    <th>Последний OK</th>
 				</tr>
 				</thead>
                 {% for score, last_ok, user, details in monitor %}
@@ -31,7 +32,9 @@
                             <td class="color-{{ resource.color }}">{{ details.inventory|get_item:resource.id }}</td>
                         {% endfor %}
                         <td>{{ score }}</td>
-                        <td class="last-accepted-time">{{ last_ok }}</td>
+                        {% if last_ok %}
+                            <td class="last-accepted-time">{{ last_ok|age }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
 			</table>
