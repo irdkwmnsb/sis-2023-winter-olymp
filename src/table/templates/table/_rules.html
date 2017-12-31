@@ -4,7 +4,9 @@
 <div class="rules">
     <h1>Привет!</h1>
 
-    <h3>Это {{ contest.name|lowerfirst }}.</h3>
+    {% if contest %}
+        <h3>Это {{ contest.name|lowerfirst }}.</h3>
+    {% endif %}
 
     <p>Сегодня вам предстоит захватывать зáмки и зарабатывать на этом деньги.</p>
 
