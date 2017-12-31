@@ -90,7 +90,7 @@ def read_statement(request, problem_id):
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
     user_result = get_result(contest, problem_statuses)
     cards = Card.objects.filter(ejudge_short_name=problem_id)
-    if len(cards) != 1:
+    if len(cards) == 0:
         return HttpResponseNotFound()
     card = cards[0]
     if not user_result['card_statuses'].get(card.id).available:
