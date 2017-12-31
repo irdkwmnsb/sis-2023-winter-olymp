@@ -1,5 +1,7 @@
 import datetime
 import calendar
+
+from django.template.defaultfilters import stringfilter
 from django.template.defaulttags import register
 
 
@@ -25,8 +27,8 @@ def times(number):
 
 @register.filter
 def age(value):
-    now = datetime.datetime.now()
-    value = datetime.datetime.fromtimestamp(value)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    value = datetime.datetime.fromtimestamp(value, datetime.timezone.utc)
     try:
         difference = now - value
     except:
@@ -34,7 +36,7 @@ def age(value):
 
     if difference <= datetime.timedelta(minutes=1):
         return 'меньше минуты назад'
-    return '%(time)s назад' % {'time': timesince(value).split(', ')[0]}
+    return '%(time)s назад' % {'time': timesince(value, now).split(', ')[0]}
 
 
 TIMESINCE_CHUNKS = (
@@ -108,3 +110,10 @@ def get_team_name(full_name: str):
     if idx > 0:
         return full_name[:idx].strip()
     return full_name
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def lowerfirst(value):
+    """Un-capitalizes the first character of the value."""
+    return value and value[0].lower() + value[1:]

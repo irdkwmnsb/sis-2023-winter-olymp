@@ -168,6 +168,7 @@ def get_result(contest, problem_statuses):
         'resources': resources,
         'ProblemState': ProblemState,
         'contest_started': contest_started,
+        'contest': contest,
     }
 
 
