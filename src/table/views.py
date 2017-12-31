@@ -8,6 +8,7 @@ from django.shortcuts import render
 from enum import Enum
 import collections
 import datetime
+import os
 
 from table.models import *
 from ejudge.database import EjudgeDatabase, RunStatus
@@ -94,7 +95,7 @@ def read_statement(request, problem_id):
     if not user_result['card_statuses'].get(card.id).available:
         return HttpResponseForbidden()
 
-    statement_path = card.get_statement_path()
+    statement_path = os.path.join(settings.PROBLEMS_STATEMENTS_DIR, card.get_statement_name())
     with open(statement_path, 'rb') as statement_file:
         statement_content = statement_file.read()
         return HttpResponse(statement_content, content_type='application/pdf')

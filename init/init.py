@@ -68,16 +68,16 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
                 continue
             line = line.strip().split('\t')
             # gb    07  palindr 2   1010    2201    2   0000    0010    1
-            (photo, country, polygon_id, polygon_shortname, level_src,
+            (photo, country, polygon_id, name, level_src,
                             needs_junior, gives_junior, score_junior,
-                            needs_adult, gives_adult, score_adult)= line[:11]
+                            needs_adult, gives_adult, score_adult, polygon_short_name)= line[:12]
             for contest, level, needs, gives, score in [
                             ('c_junior', int(level_src), needs_junior, gives_junior, score_junior),
                             ('c_adult', int(level_src) - 1, needs_adult, gives_adult, score_adult)]:
                 if needs == 'xxxx':
                     continue
-                print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s, photo=%d)' % (
-                            polygon_id, polygon_shortname, int(score), level, country, int(photo)), file=output_file)
+                print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s, photo=%d, polygon_short_name="%s")' % (
+                            polygon_id, name, int(score), level, country, int(photo), polygon_short_name), file=output_file)
                 print('%s.cards.add(card)' % (contest), file=output_file);
                 for i in range(0, len(needs)):
                     cnt = int(needs[i])

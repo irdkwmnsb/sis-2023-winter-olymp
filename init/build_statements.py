@@ -10,6 +10,7 @@ import glob
 import json
 
 CONTEST_DIR = 'polygon-contest'
+INIT_FILE = 'init.txt'
 BUILD_DIR = 'build'
 LANGUAGE = 'russian'
 FILES_DIR = 'files-' + LANGUAGE
@@ -32,13 +33,20 @@ def build_with_text(text, replace_data, result, section='', problem_name=''):
     os.chdir(BUILD_DIR)
     logging.info('Compile problem %s' % problem_name)
     for _ in range(2):
-        subprocess.check_output(['pdflatex', '-quiet', 'compile.tex'])
+        subprocess.check_output(['pdflatex', 'compile.tex'])
     os.chdir(cwd)
 
     shutil.copy(os.path.join(BUILD_DIR, 'compile.pdf'), os.path.join(FILES_DIR, result))
 
 
 def main():
+    id_by_name = {}
+    with open(INIT_FILE, 'r', encoding='utf-8') as init:
+        for line in init:
+            if not line.strip():
+                continue
+            line = line.strip().split('\t')
+            id_by_name[line[11]] = line[2]
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)s] %(message)s')
     if not os.path.exists(FILES_DIR):
         logging.info('Create folder for output files: %s' % FILES_DIR)
@@ -64,23 +72,30 @@ def main():
             memory_limit = memory_limit_from_int(properties['memoryLimit'])
             input_format = properties['input']
             output_format = properties['output']
+            samples = "".join(["\exmp{%s}{%s}%%\n" % (sample['input'], sample['output'])
+                            for sample in properties['sampleTests']])
+            notes = ''
+            if 'notes' in properties:
+                notes = '\\Note\n' + properties['notes']
 
-            # print('UPDATE problems SET description = "%s" WHERE id = %d;' % (legend, 14 + problem_counter))
+
 
             shutil.copy('template.tex', os.path.join(BUILD_DIR, 'compile.tex'))
             shutil.copy('olymp.sty', os.path.join(BUILD_DIR, 'olymp.sty'))
             with codecs.open('data.tex', 'r', 'utf-8') as data_file:
                 data = data_file.read()
 
+            problem_name = os.path.basename(problem_dir)
+            problem_id = id_by_name[problem_name]
             data = data.replace('%NAME%', name).replace('%INPUT_FILE%', input_file).replace('%OUTPUT_FILE%', output_file).\
                         replace('%TIME_LIMIT%', time_limit).replace('%MEMORY_LIMIT%', memory_limit).\
+                        replace('%ID%', problem_id).\
                         replace('%PROBLEM_COUNTER%', str(problem_counter)).\
                         replace('%STATEMENT_DIR%', os.path.join('..', statement_dir).replace('\\', '/') + '/')
 
-            problem_name = os.path.basename(problem_dir)
-            build_with_text(data, legend + '\n\\InputFile\n' + input_format + '\n\\OutputFile\n' + output_format, problem_name + '.pdf', problem_name=problem_name)
-            # build_with_text(data, input_format, problem_name + '-input-format.pdf', problem_name=problem_name, section=r'\InputFile')
-            # build_with_text(data, output_format, problem_name + '-output-format.pdf', problem_name=problem_name, section=r'\OutputFile')
+            build_with_text(data, legend + '\n\\InputFile\n' + input_format + '\n\\OutputFile\n' + output_format +
+                "\\begin{example}" + samples +"\\end{example}\n" + notes,
+                problem_name + '.pdf', problem_name=problem_name)
 
 
 if __name__ == '__main__':

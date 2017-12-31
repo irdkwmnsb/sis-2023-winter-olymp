@@ -44,7 +44,8 @@ class Country(models.Model):
 
 class Card(models.Model):
     ejudge_short_name = models.CharField(db_index=True, max_length=255)
-    name = models.CharField(max_length=255, help_text='Имя карты/замка')
+    polygon_short_name = models.CharField(db_index=True, max_length=255)
+    name = models.CharField(max_length=255, help_text='Имя карты/замка')    
     needs = models.ManyToManyField(Resource, through='NeedsCardResource', related_name='needs+')
     gives = models.ManyToManyField(Resource, through='GivesCardResource', related_name='gives+')
     score = models.PositiveIntegerField()
@@ -55,8 +56,8 @@ class Card(models.Model):
     def __str__(self):
         return '%s. %s' % (self.ejudge_short_name, self.name)
 
-    def get_statement_path(self):
-        return "%s.pdf" % self.ejudge_short_name
+    def get_statement_name(self):
+        return "%s.pdf" % self.polygon_short_name
 
     def get_needs(self):
         return NeedsCardResource.objects.filter(card=self).all()
