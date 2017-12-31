@@ -150,6 +150,7 @@ def get_result(contest, problem_statuses):
     card_statuses_by_level = [[] for i in range(6)]
     for card_status in card_statuses.values():
         card_statuses_by_level[card_status.card.level].append(card_status)
+    card_statuses_by_level = [sorted(x, key=lambda cs: int(cs.card.ejudge_short_name)) for x in card_statuses_by_level]
 
     resources = list(models.Resource.objects.all())
     ejudge_contest = Contest(settings.EJUDGE_SERVE_CFG)
