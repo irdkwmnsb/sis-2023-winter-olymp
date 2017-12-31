@@ -33,46 +33,24 @@
             </div>
         {% endif %}
 
-
-        {% for card_statuses in card_statuses_by_level %}
-            {% for card_status in card_statuses %}
-                {% with card_id=card_status.card.photo|stringformat:'s' %}
-                    {% with card_path='images/castles/'|add:card_id|add:'.jpg' %}
-                        <div class="card {% if card_status.problem_status.state == ProblemState.SOLVED %}passed{% elif card_status.available %}available{% else %}not-available{% endif %}" style="background-image: url('{% static card_path %}');">
-                    {% endwith %}
-                {% endwith %}
-                <div class="card__header">
-                    <div class="card__header__flag" title="Этот замок находится в {{ card_status.card.country.name_gen }}">
-                        {% with country_id=card_status.card.country.id|stringformat:'s' %}
-                            {% with country_path='images/flags/'|add:country_id|add:'.png' %}
-                                <img src="{% static country_path %}">
-                            {% endwith %}
+        <div class="cards_wrapper">
+            {% for card_statuses in card_statuses_by_level %}
+                {% for card_status in card_statuses %}
+                    {% with card_id=card_status.card.photo|stringformat:'s' %}
+                        {% with card_path='images/castles/'|add:card_id|add:'.jpg' %}
+                            <div class="card {% if card_status.problem_status.state == ProblemState.SOLVED %}passed{% elif card_status.available %}available{% else %}not-available{% endif %}" style="background-image: url('{% static card_path %}');">
                         {% endwith %}
-                    </div>
-                    <div class="card__header__weapons" title="Решив эту задачу, вы получите один меч и две пушки">
-                        <img src="{% static 'images/weapons/1.png' %}">
-                        <img src="{% static 'images/weapons/3.png' %}">
-                        <img src="{% static 'images/weapons/3.png' %}">
-                    </div>
-                    <div class="card__header__score" title="Решив эту задачу, вы получите +{{ card_status.card.score }} очков">
-                        +{{ card_status.card.score }}
-                    </div>
-                </div>
-                {% if card_status.problem_status.state == ProblemState.SOLVED %}
-                    <div class="card__captured-icon" title="Вы захватили этот замок!">
-                        <img src="{% static 'images/captured.png' %}">
-                    </div>
-                {% elif card_status.available %}
-                    <div class="card__open-button">
-                        <span>
-                            <a href="#">Открыть</a>
-                        </span>
-                    </div>
-                {% else %}
-                    <div class="card__open-info" title="Для открытия этой задачи надо иметь 3 меча, 2 катапульты и 4 ружья">
-                        Для открытия нужно иметь:
-                        {% for cr in card_status.card.get_needs %}
-                            <div class="card__open-info__weapons">
+                    {% endwith %}
+                    <div class="card__header">
+                        <div class="card__header__flag" title="Этот замок находится в {{ card_status.card.country.name_gen }}">
+                            {% with country_id=card_status.card.country.id|stringformat:'s' %}
+                                {% with country_path='images/flags/'|add:country_id|add:'.png' %}
+                                    <img src="{% static country_path %}">
+                                {% endwith %}
+                            {% endwith %}
+                        </div>
+                        <div class="card__header__weapons" title="Захватик этот замок вы получите {{ card_status.card.get_gives_description }}">
+                            {% for cr in card_status.card.get_gives %}
                                 {% for i in cr.count|times %}
                                     {% with resource_id=cr.resource.id|stringformat:'s' %}
                                         {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
@@ -80,29 +58,56 @@
                                         {% endwith %}
                                     {% endwith %}
                                 {% endfor %}
-                            </div>
-                        {% endfor %}
-                        <div class="card__open-info__weapons">
-                            <img src="{% static 'images/weapons/2.png' %}">
-                            <img src="{% static 'images/weapons/2.png' %}">
+                            {% endfor %}
                         </div>
-                        <div class="card__open-info__weapons">
-                            <img src="{% static 'images/weapons/4.png' %}">
-                            <img src="{% static 'images/weapons/4.png' %}">
-                            <img src="{% static 'images/weapons/4.png' %}">
-                            <img src="{% static 'images/weapons/4.png' %}">
+                        <div class="card__header__score" title="Захватив этот замок
+                            {% if card_status.card.score == 0 %}
+                                вы не получите очков
+                            {% elif card_status.card.score == 1 %}
+                                вы получите +1 очко
+                            {% else %}
+                                вы получите +{{ card_status.card.score }} очков
+                            {% endif %}
+                            ">
+                            +{{ card_status.card.score }}
                         </div>
                     </div>
-                {% endif %}
-                <div class="card__footer">
-                    <span>
-                        {{ card_status.card.ejudge_short_name }}. {{ card_status.card.name }}
-                    </span>
-                </div>
-                </div> <!-- .card -->
+                    {% if card_status.problem_status.state == ProblemState.SOLVED %}
+                        <div class="card__captured-icon" title="Вы захватили этот замок!">
+                            <img src="{% static 'images/captured.png' %}">
+                        </div>
+                    {% elif card_status.available %}
+                        <div class="card__open-button">
+                            <span>
+                                <a href="#">Открыть</a>
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="card__open-info" title="Для подхода к этому замку надо иметь {{ card_status.card.get_needs_description }}">
+                            Для открытия нужно иметь:
+                            {% for cr in card_status.card.get_needs %}
+                                <div class="card__open-info__weapons">
+                                    {% for i in cr.count|times %}
+                                        {% with resource_id=cr.resource.id|stringformat:'s' %}
+                                            {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
+                                                <img src="{% static resource_path %}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="card__footer">
+                        <span>
+                            {{ card_status.card.ejudge_short_name }}. {{ card_status.card.name }}
+                        </span>
+                    </div>
+                    </div> <!-- .card -->
+                {% endfor %}
+                <br/>
             {% endfor %}
-            <br/>
-        {% endfor %}
+        </div> <!-- .cards_wrapper -->
     </div> <!-- .table -->
 
 <table border="1">

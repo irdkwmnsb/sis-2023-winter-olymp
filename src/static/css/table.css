@@ -10,6 +10,12 @@ body {
 	padding: 20px;
 }
 
+.cards_wrapper {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .card {
 	border-radius: 19px;
 	background-color: white;
@@ -45,6 +51,7 @@ body {
 	height: 20px;
 	border-top-left-radius: 19px;
 	border-top-right-radius: 19px;
+    text-align: left;
 }
 
 .card .card__header > * {
@@ -120,7 +127,7 @@ body {
 /* Card's open info */
 .card .card__open-info {	
 	height: 107px;
-	padding: 15px 20px 20px;
+	padding: 15px 16px 20px;
 	background-color: rgba(255, 255, 255, 0.8);
 	text-align: center;
 	font-size: 14px;
