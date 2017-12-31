@@ -4,6 +4,7 @@
 
 {% block content %}
 Hello {{user}},
+This is {{contest.name}}<br/>
 <a href="{% url 'users:logout' %}">Выход</a>
 <br/>
 <table>
@@ -12,6 +13,7 @@ Hello {{user}},
       <td>{{ user }}</td>
       <td>{{ score }}</td>
       <td>{{ details.inventory }}</td>
+      <td>{{ last_ok }}</td>
     </tr>
   {% endfor %}
 </table>
