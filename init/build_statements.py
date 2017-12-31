@@ -75,7 +75,7 @@ def main():
             samples = "".join(["\exmp{%s}{%s}%%\n" % (sample['input'], sample['output'])
                             for sample in properties['sampleTests']])
             notes = ''
-            if 'notes' in properties:
+            if len(properties.get('notes','')) > 0:
                 notes = '\\Note\n' + properties['notes']
 
 
