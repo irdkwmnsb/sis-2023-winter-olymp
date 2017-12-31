@@ -30,7 +30,6 @@
                         {% for resource in resources %}
                             <td class="color-{{ resource.color }}">{{ details.inventory|get_item:resource.id }}</td>
                         {% endfor %}
-                        <td>{{ details.inventory }}</td>
                         <td>{{ score }}</td>
                         <td class="last-accepted-time">{{ last_ok }}</td>
                     </tr>

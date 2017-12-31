@@ -116,6 +116,9 @@ class VirtualContest(models.Model):
     name = models.CharField(max_length=255)
     cards = models.ManyToManyField(Card, related_name='contest')
 
+    def __str__(self):
+        return self.name
+
 
 class AbstractCardResource(models.Model):
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE)

@@ -36,8 +36,11 @@ class CountryStatus:
 def index(request):
     user = request.user
     contest = get_contest(user.username)
-    problem_statuses_by_user = load_from_ejudge_runs(request.user)
+    problem_statuses_by_user = load_from_ejudge_runs(user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
+
+    print('ejudge user id', user.info.ejudge_user_id)
+    print('problem_statuses_by_user', problem_statuses_by_user)
 
     return render(request, 'table/table.html', get_result(contest, problem_statuses))
 
@@ -48,21 +51,27 @@ def monitor(request, contest_id=-1):
         return HttpResponseForbidden()
 
     problem_statuses_by_user = load_from_ejudge_runs()
-    users_names = { u.info.ejudge_user_id: u.username
-                    for u in User.objects.all()}
+    users_by_ejudge_id = {
+        u.info.ejudge_user_id: u
+        for u in User.objects.all()
+    }
     monitor = []
     my_results = {}
     # Add myself to problem_statuses for loading my inventory and score
     if request.user.is_authenticated:
         problem_statuses_by_user.setdefault(request.user.info.ejudge_user_id, {})
     for user_ejudge_id, problem_statuses in problem_statuses_by_user.items():
-        user_login = users_names.get(user_ejudge_id, '')
+        if user_ejudge_id not in users_by_ejudge_id:
+            continue
+
+        user_login = users_by_ejudge_id[user_ejudge_id].username
+
         user_result = get_result(contest, problem_statuses)
         if request.user.is_authenticated and user_ejudge_id == request.user.info.ejudge_user_id:
             my_results = user_result
         if not user_login.startswith(contest.login_prefix):
             continue
-        monitor.append((user_result['score'], user_result['last_ok'], user_ejudge_id, user_result))
+        monitor.append((user_result['score'], user_result['last_ok'], users_by_ejudge_id[user_ejudge_id], user_result))
 
     resources = list(models.Resource.objects.all())
 
@@ -103,6 +112,8 @@ class CardStatus:
 
 
 def get_result(contest, problem_statuses):
+    print('contest', contest)
+    print(problem_statuses)
     cards = models.Card.objects.filter(contest=contest).all()
 
     inventory = collections.defaultdict(int)

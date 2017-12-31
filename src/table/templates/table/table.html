@@ -47,7 +47,7 @@
                     {% elif card_status.available %}
                         <div class="card__open-button">
                             <span>
-                                <a href="{% url 'statement' card_status.card.ejudge_short_name %}" target="_hover">Захватить</a>
+                                <a href="{% url 'table:statement' problem_id=card_status.card.ejudge_short_name %}" target="_hover">Захватить</a>
                             </span>
                         </div>
                     {% else %}
