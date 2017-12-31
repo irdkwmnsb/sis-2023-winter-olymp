@@ -51,6 +51,9 @@ class Card(models.Model):
     photo = models.PositiveIntegerField()
     level = models.PositiveIntegerField()
     country = models.ForeignKey(Country, related_name='cards')
+    
+    def __str__(self):
+        return '%s. %s' % (self.ejudge_short_name, self.name)
 
     def get_statement_path(self):
         return "%s.pdf" % self.ejudge_short_name

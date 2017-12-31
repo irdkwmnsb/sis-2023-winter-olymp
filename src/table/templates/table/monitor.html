@@ -1,20 +1,41 @@
 {% extends 'layout.html' %}
 
 {% load static %}
+{% load helpers %}
 
 {% block content %}
-Hello {{user}},
-This is {{contest.name}}<br/>
-<a href="{% url 'users:logout' %}">Выход</a>
-<br/>
-<table>
-  {% for score, last_ok, user, details in monitor %}
-    <tr>
-      <td>{{ user }}</td>
-      <td>{{ score }}</td>
-      <td>{{ details.inventory }}</td>
-      <td>{{ last_ok }}</td>
-    </tr>
-  {% endfor %}
-</table>
+    <div class="table">
+        {% include 'table/_header.html' %}
+
+        <div class="monitor">
+			<table>
+				<thead>
+				<tr>
+					<th>№</th>
+					<th>Команда</th>
+                    {% for resource in resources %}
+                        {% with resource_id=resource.id|stringformat:'s' %}
+                            {% with resource_path='images/weapons/'|add:resource_id|add:'.png'  %}
+                                <th><img src="{% static resource_path %}"></th>
+                            {% endwith %}
+                        {% endwith %}
+                    {% endfor %}
+					<th>Очки</th>
+				</tr>
+				</thead>
+                {% for score, last_ok, user, details in monitor %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        {% for resource in resources %}
+                            <td class="color-{{ resource.color }}">{{ details.inventory|get_item:resource.id }}</td>
+                        {% endfor %}
+                        <td>{{ details.inventory }}</td>
+                        <td>{{ score }}</td>
+                        <td class="last-accepted-time">{{ last_ok }}</td>
+                    </tr>
+                {% endfor %}
+			</table>
+		</div>
+    </div>
 {% endblock %}

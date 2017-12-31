@@ -1,0 +1,29 @@
+{% load static %}
+{% load helpers %}
+
+{% if user.is_authenticated %}
+    <div class="table__header">
+        <div class="table__header__team">
+            {{ user.first_name }} {{ user.last_name }}
+        </div>
+        <div class="table__header__right">
+            {% for resource in resources %}
+                {% with resource_count=inventory|get_item:resource.id %}
+                    <div class="table__header__weapon color-{{ resource.color }}" title="У вас {{ resource_count }} {{ resource|select_resource_name:resource_count }}">
+                        {% with resource_id=resource.id|stringformat:'s' %}
+                            {% with resource_path='images/weapons/'|add:resource_id|add:'@2x.png' %}
+                                <img src="{% static resource_path %}">
+                            {% endwith %}
+                        {% endwith %}
+                        <span><span class="times">x</span>{{ resource_count }}</span>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+
+            <div class="table__header__score" title="У вас 45 очков">
+                <img src="{% static 'images/coin.png' %}">
+                {{ score }}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -15,10 +15,11 @@ from ejudge.models import Contest
 from . import models
 
 
-def get_contest(user, default_contest_id=-1):
-    for contest in models.VirtualContest.objects.all():
-        if user.startswith(contest.login_prefix):
-            return contest
+def get_contest(user_login, default_contest_id=-1):
+    if user_login is not None:
+        for contest in models.VirtualContest.objects.all():
+            if user_login.startswith(contest.login_prefix):
+                return contest
     return VirtualContest.objects.filter(id=default_contest_id).first()
 
 
@@ -41,10 +42,8 @@ def index(request):
     return render(request, 'table/table.html', get_result(contest, problem_statuses))
 
 
-@login_required
 def monitor(request, contest_id=-1):
-    print('contest_id = ', contest_id)
-    contest = get_contest(request.user.username, contest_id)
+    contest = get_contest(request.user.username if request.user.is_authenticated else None, contest_id)
     if contest is None:
         return HttpResponseForbidden()
 
@@ -52,16 +51,27 @@ def monitor(request, contest_id=-1):
     users_names = { u.info.ejudge_user_id: u.username
                     for u in User.objects.all()}
     monitor = []
-    for user, problem_statuses in problem_statuses_by_user.items():
-        user_login = users_names.get(user, '')
+    my_results = {}
+    # Add myself to problem_statuses for loading my inventory and score
+    if request.user.is_authenticated:
+        problem_statuses_by_user.setdefault(request.user.info.ejudge_user_id, {})
+    for user_ejudge_id, problem_statuses in problem_statuses_by_user.items():
+        user_login = users_names.get(user_ejudge_id, '')
+        user_result = get_result(contest, problem_statuses)
+        if request.user.is_authenticated and user_ejudge_id == request.user.info.ejudge_user_id:
+            my_results = user_result
         if not user_login.startswith(contest.login_prefix):
             continue
-        user_result = get_result(contest, problem_statuses)
-        monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
+        monitor.append((user_result['score'], user_result['last_ok'], user_ejudge_id, user_result))
+
+    resources = list(models.Resource.objects.all())
 
     return render(request, 'table/monitor.html', {
         'monitor': sorted(monitor, key=lambda x: (-x[0], x[1])),
         'contest': contest,
+        'resources': resources,
+        'inventory': my_results.get('inventory', None),
+        'score': my_results.get('score', None)
     })
 
 
@@ -146,7 +156,6 @@ def get_result(contest, problem_statuses):
         'card_statuses': card_statuses,
         'card_statuses_by_level': card_statuses_by_level,
         'country_statuses': country_statuses,
-        'debug': contest_started,
         'resources': resources,
         'ProblemState': ProblemState,
         'contest_started': contest_started,
