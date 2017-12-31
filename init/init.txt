@@ -1,35 +1,35 @@
-1	cz	04	Státní hrad Křivoklát	1	0000	0010	1	xxxx	xxxx	x	dessert-maker	1_Чехия_Кршивоклат.jpg
+1	cz	04	Státní hrad Křivoklát	1	0000	0100	1	xxxx	xxxx	x	dessert-maker	1_Чехия_Кршивоклат.jpg
 2	ch	12	Château de La Bâtiaz	1	0000	1010	0	xxxx	xxxx	x	hamming	ch_shato_de_la_botiaz.webp
-3	fr	02	Château de Najac	1	0000	1000	0	xxxx	xxxx	x	third-buy-discount	fr_chateau_de_najac.jpg
+3	fr	02	Château de Najac	1	0000	1100	0	xxxx	xxxx	x	third-buy-discount	fr_chateau_de_najac.jpg
 4	fr	03	Château d'Anjony	1	0000	0100	1	xxxx	xxxx	x	digital-display	fr_chato_danjony.jpg
 5	de	01	Schloß Hohenschwangau	1	0000	1000	1	xxxx	xxxx	x	kek	ger_hohenschwangau.jpg
-6	de	05	Burg Hohenzollern	1	0000	0110	0	xxxx	xxxx	x	straight-array	ger_hohenzollern.webp
+6	de	05	Burg Hohenzollern	1	0000	0100	0	xxxx	xxxx	x	straight-array	ger_hohenzollern.webp
 7	ch	32	Schloß Habsburg	1	0000	1000	1	xxxx	xxxx	x	keyboard	ch_habsburg.jpeg
 8	ro	22	Castelul Corvinilor	1	0000	0110	0	xxxx	xxxx	x	ones	1_Румыния_Корвинов.jpg
 												
-10	gb	07	Bodiam Castle	2	1010	2201	2	0000	0010	1	palindr	1_Англия_ Бодиам.jpg
+10	gb	07	Bodiam Castle	2	1010	2201	2	0000	0100	1	palindr	1_Англия_ Бодиам.jpg
 11	ch	06	Château de Chillon	2	1100	1211	1	0000	1010	0	word-math	ch_chillon.jpg
-12	cz	09	Zámek Orlík	2	1110	0221	2	0000	1000	0	gentest	1_Чехия_Орлик.jpg
-13	fr	11	Château de Commarque	2	0030	2111	2	0000	0100	1	crosses	fr_commarque.JPG
+12	cz	09	Zámek Orlík	2	1110	0221	2	0000	1100	0	gentest	1_Чехия_Орлик.jpg
+13	fr	11	Château de Commarque	2	0300	2111	2	0000	0100	1	crosses	fr_commarque.JPG
 14	de	10	Löwenburg Kassel	2	0110	1201	3	0000	1000	1	good-and-bad-postmen	ger_loewenburg.jpg
-15	it	08	Castello di Miramare	2	2000	0031	1	0000	0110	0	string-io	it_miramare.jpeg
-16	it	31	Castello del Valentino	2	1110	3001	2	0000	1100	0	highway	it_valentiono.jpg
-26	it	25	Castello Sforzesco	2	1110	1001	2	0000	1110	0	twohoses	it_sfortsa.jpg
+15	it	08	Castello di Miramare	2	2000	0031	1	0000	0100	0	string-io	it_miramare.jpeg
+16	it	31	Castello del Valentino	2	1110	3001	2	0000	1000	0	highway	it_valentiono.jpg
+26	it	25	Castello Sforzesco	2	1100	1021	2	0000	0110	0	twohoses	it_sfortsa.jpg
 												
 19	gb	13	Warwick Castle	3	0004	1100	5	1010	2201	2	governor	1_Англия_Warwick.jpg
-20	gb	28	Leeds Castle	3	5552	1010	4	1100	1211	1	divisibility	1_Англия_Лидс.jpg
-21	ro	27	Cetatea Devei	3	6543	1001	5	1110	0221	2	distinct-dice	1_Румыния_Дева.jpg
-22	ro	21	Castelul Peleş	3	4732	0110	4	0030	2111	2	anti	1_Румыния_Пелеш.jpg
-23	de	19	Burg Eltz	3	6642	0101	4	0110	1201	3	substring	ger_eltz.jpg
-24	fr	26	Hohkönigsburg	3	6452	0011	3	2000	0031	1	rube-goldberg	fr_hohkönigsburg.jpeg
-25	it	20	Castello Scaligero	3	5551	0002	3	1110	3001	2	hol	it_scaligero.jpg
-17	ch	18	Basilique de Valère	3	4471	0002	4	1110	0002	1	ineq	ch_valere.jpg
+20	gb	28	Leeds Castle	3	0552	1010	4	1100	1211	1	divisibility	1_Англия_Лидс.jpg
+21	ro	27	Cetatea Devei	3	6043	1001	5	1110	0221	2	distinct-dice	1_Румыния_Дева.jpg
+22	ro	21	Castelul Peleş	3	0732	0110	4	0300	2111	2	anti	1_Румыния_Пелеш.jpg
+23	de	19	Burg Eltz	3	6042	0101	4	0110	1201	3	substring	ger_eltz.jpg
+24	fr	26	Hohkönigsburg	3	0452	0011	3	2000	0031	1	rube-goldberg	fr_hohkönigsburg.jpeg
+25	it	20	Castello Scaligero	3	5051	0002	3	1110	3001	2	hol	it_scaligero.jpg
+17	ch	18	Basilique de Valère	3	0451	0002	4	1100	1021	1	ineq	ch_valere.jpg
 												
 28	gb	23	Alnwick Castle	4	xxxx	xxxx	x	0004	1100	5	queen	1_Англия_ Алнвик.jpg
-29	gb	30	Castell Rhaglan	4	xxxx	xxxx	x	5552	1010	4	warehouse-job	1_Англия_Раглан.jpg
-30	ro	14	Castelul Bran	4	xxxx	xxxx	x	6543	1001	5	theorem	1_Румыния_Бран.jpg
-31	ro	17	Cetatea Poenari	4	xxxx	xxxx	x	4732	0110	4	lateagain	1_Румыния_Поенари.jpg
-32	cz	15	Zámek Hluboká	4	xxxx	xxxx	x	6642	0101	4	epig	1_Чехия_ Глубока-над-Влтавой.jpg
-33	cz	24	Hrad Karlštejn	4	xxxx	xxxx	x	6452	0011	3	protect	1_Чехия_Karlshteyn.jpg
-34	cz	16	Hrad Búzov	4	xxxx	xxxx	x	5551	0002	3	trenches	1_Чехия_Бузов.jpg
-35	ch	29	Château de Tourbillon	4	xxxx	xxxx	x	4471	0002	4	pending-tasks	ch_turbiyon.jpg
+29	gb	30	Castell Rhaglan	4	xxxx	xxxx	x	0552	1010	4	warehouse-job	1_Англия_Раглан.jpg
+30	ro	14	Castelul Bran	4	xxxx	xxxx	x	6043	1001	5	theorem	1_Румыния_Бран.jpg
+31	ro	17	Cetatea Poenari	4	xxxx	xxxx	x	0732	0110	4	lateagain	1_Румыния_Поенари.jpg
+32	cz	15	Zámek Hluboká	4	xxxx	xxxx	x	6042	0101	4	epig	1_Чехия_ Глубока-над-Влтавой.jpg
+33	cz	24	Hrad Karlštejn	4	xxxx	xxxx	x	0452	0011	3	protect	1_Чехия_Karlshteyn.jpg
+34	cz	16	Hrad Búzov	4	xxxx	xxxx	x	5051	0002	3	trenches	1_Чехия_Бузов.jpg
+35	ch	29	Château de Tourbillon	4	xxxx	xxxx	x	0451	0002	4	pending-tasks	ch_turbiyon.jpg
