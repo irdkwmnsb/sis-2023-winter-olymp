@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="{% static 'css/table.css' %}">
 	<link rel="stylesheet" href="{% static 'css/monitor.css' %}">
 </head>
-<body>
+<body style="{% block body_styles %}{% endblock %}">
     {% block content %}
     {% endblock %}
 </body>

@@ -16,6 +16,12 @@ html, body {
     box-shadow: 3px 3px 2px rgba(66, 66, 66, 0.5);
 }
 
+@media (max-width: 500px) {
+    .login-form {
+        width: 70%;
+    }
+}
+
 .login-form h1 {
     margin-bottom: 20px;
     color: black;
@@ -39,4 +45,10 @@ input[type="password"] {
 
 .login-form button:hover {
     background-color: #313131;
+}
+
+.login-form .errorlist {
+    list-style: none;
+    color: #890C0C;
+    padding-left: 0;
 }

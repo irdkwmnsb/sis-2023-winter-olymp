@@ -6,6 +6,7 @@ class LoginForm(forms.Form):
         max_length=255, strip=True, label='', label_suffix='',
         widget=forms.TextInput(attrs={
             'placeholder': 'Логин',
+            'autofocus': 'autofocus',
         })
     )
 
