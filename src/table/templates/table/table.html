@@ -49,7 +49,7 @@
                                 {% endwith %}
                             {% endwith %}
                         </div>
-                        <div class="card__header__weapons" title="Захватик этот замок вы получите {{ card_status.card.get_gives_description }}">
+                        <div class="card__header__weapons" title="Захватив этот замок вы получите {{ card_status.card.get_gives_description }}">
                             {% for cr in card_status.card.get_gives %}
                                 {% for i in cr.count|times %}
                                     {% with resource_id=cr.resource.id|stringformat:'s' %}
@@ -60,14 +60,7 @@
                                 {% endfor %}
                             {% endfor %}
                         </div>
-                        <div class="card__header__score" title="Захватив этот замок
-                            {% if card_status.card.score == 0 %}
-                                вы не получите очков
-                            {% elif card_status.card.score == 1 %}
-                                вы получите +1 очко
-                            {% else %}
-                                вы получите +{{ card_status.card.score }} очков
-                            {% endif %}
+                        <div class="card__header__score" title="Захватив этот замок{% if card_status.card.score == 0 %}вы не получите очков{% elif card_status.card.score == 1 %}вы получите +1 очко{% else %}вы получите +{{ card_status.card.score }} очка{% endif %}
                             ">
                             +{{ card_status.card.score }}
                         </div>
