@@ -52,3 +52,16 @@ input[type="password"] {
     color: #890C0C;
     padding-left: 0;
 }
+
+.rules {
+    padding: 30px 50px;
+    width: 700px;
+    margin: 100px auto;
+    border-radius: 19px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 3px 3px 2px rgba(66, 66, 66, 0.5);
+}
+
+.rules .images {
+    text-align: center;
+}

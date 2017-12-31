@@ -118,6 +118,11 @@ body {
 	cursor: pointer;
 }
 
+.card .card__open-button span:hover,
+.card .card__open-button span:active {
+    background-color: #ddeedd;
+}
+
 .card .card__open-button span {
 	padding: 4px 17px;
     border: 1px solid #1D380E;
