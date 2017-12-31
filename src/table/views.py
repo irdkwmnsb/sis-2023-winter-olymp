@@ -36,7 +36,7 @@ def index(request):
     problem_statuses_by_user = load_from_ejudge_runs(request.user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
 
-    return render(request, 'table/table.html', get_user_result(user, contest, problem_statuses))
+    return render(request, 'table/table.html', get_result(contest, problem_statuses))
 
 
 @login_required
@@ -45,7 +45,7 @@ def monitor(request):
     contest = get_contest(request.user.username)
     monitor = []
     for user, problem_statuses in problem_statuses_by_user.items():
-        user_result = get_user_result(user, contest, problem_statuses)
+        user_result = get_result(contest, problem_statuses)
         monitor.append((user_result['score'], user_result['last_ok'], user, user_result))
 
     return render(request, 'table/monitor.html', {
@@ -58,7 +58,7 @@ def read_statement(request, problem_id):
     contest = get_contest(user.username)
     problem_statuses_by_user = load_from_ejudge_runs(user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
-    user_result = get_user_result(user, contest, problem_statuses)
+    user_result = get_result(contest, problem_statuses)
     cards = Card.objects.filter(ejudge_short_name=problem_id)
     if len(cards) != 1:
         return HttpResponseNotFound()
@@ -80,7 +80,7 @@ class CardStatus:
     available = False
 
 
-def get_user_result(user, contest, problem_statuses):
+def get_result(contest, problem_statuses):
     cards = models.Card.objects.filter(contest=contest).all()
 
     inventory = collections.defaultdict(int)
