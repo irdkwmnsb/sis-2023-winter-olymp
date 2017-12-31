@@ -13,14 +13,16 @@
                 </div>
                 <div class="table__header__right">
                     {% for resource in resources %}
-                        <div class="table__header__weapon color-{{ resource.color }}" title="{{ resource.name }}: {{ inventory|get_item:resource.id }}">
-                            {% with resource_id=resource.id|stringformat:'s' %}
-                                {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
-                                    <img src="{% static resource_path %}">
+                        {% with resource_count=inventory|get_item:resource.id %}
+                            <div class="table__header__weapon color-{{ resource.color }}" title="У вас {{ resource_count }} {{ resource|select_resource_name:resource_count }}">
+                                {% with resource_id=resource.id|stringformat:'s' %}
+                                    {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
+                                        <img src="{% static resource_path %}">
+                                    {% endwith %}
                                 {% endwith %}
-                            {% endwith %}
-                            <span><span class="times">x</span>{{ inventory|get_item:resource.id }}</span>
-                        </div>
+                                <span><span class="times">x</span>{{ resource_count }}</span>
+                            </div>
+                        {% endwith %}
                     {% endfor %}
 
                     <div class="table__header__score" title="У вас 45 очков">
@@ -30,52 +32,78 @@
                 </div>
             </div>
         {% endif %}
-    </div>
 
 
-Hello {{user}},
-<a href="{% url 'users:logout' %}">Выход</a>
-<br/>
-Inventory: {{ inventory }}<br/>
-Score: {{ score }}<br/>
-Countries: <ul>
-{% for country_status in country_statuses.values %}
-<li>{{country_status.country.name}}: {{country_status.solved}} of {{country_status.total}}; bonus: {{country_status.country.bonus}} </li>
-{% endfor %}
-</ul>
-
-Resources: {{ resources }}
-
-{% for card_statuses in card_statuses_by_level %}
-    {% for card_status in card_statuses %}
-        <div class="card available" style="background-image: url('{% static 'images/castles/1_Англия_ Алнвик.jpg' %}');">
-			<div class="card__header">
-				<div class="card__header__flag" title="Этот замок находится в Германии">
-					<img src="{% static 'images/flags/1.png' %}">
-				</div>
-				<div class="card__header__weapons" title="Решив эту задачу, вы получите один меч и две пушки">
-					<img src="{% static 'images/weapons/1.png' %}">
-					<img src="{% static 'images/weapons/3.png' %}">
-					<img src="{% static 'images/weapons/3.png' %}">
-				</div>
-				<div class="card__header__score" title="Решив эту задачу, вы получите +{{ card_status.card.score }} очков">
-					+{{ card_status.card.score }}
-				</div>
-			</div>
-			<div class="card__open-button">
-				<span>
-					<a href="#">Открыть</a>
-				</span>
-			</div>
-			<div class="card__footer">
-				<span>
-					{{ card_status.card.name }}
-				</span>
-			</div>
-		</div>
-    {% endfor %}
-    <br/>
-{% endfor %}
+        {% for card_statuses in card_statuses_by_level %}
+            {% for card_status in card_statuses %}
+                {% with card_id=card_status.card.photo|stringformat:'s' %}
+                    {% with card_path='images/castles/'|add:card_id|add:'.jpg' %}
+                        <div class="card {% if card_status.problem_status.state == ProblemState.SOLVED %}passed{% elif card_status.available %}available{% else %}not-available{% endif %}" style="background-image: url('{% static card_path %}');">
+                    {% endwith %}
+                {% endwith %}
+                <div class="card__header">
+                    <div class="card__header__flag" title="Этот замок находится в {{ card_status.card.country.name_gen }}">
+                        {% with country_id=card_status.card.country.id|stringformat:'s' %}
+                            {% with country_path='images/flags/'|add:country_id|add:'.png' %}
+                                <img src="{% static country_path %}">
+                            {% endwith %}
+                        {% endwith %}
+                    </div>
+                    <div class="card__header__weapons" title="Решив эту задачу, вы получите один меч и две пушки">
+                        <img src="{% static 'images/weapons/1.png' %}">
+                        <img src="{% static 'images/weapons/3.png' %}">
+                        <img src="{% static 'images/weapons/3.png' %}">
+                    </div>
+                    <div class="card__header__score" title="Решив эту задачу, вы получите +{{ card_status.card.score }} очков">
+                        +{{ card_status.card.score }}
+                    </div>
+                </div>
+                {% if card_status.problem_status.state == ProblemState.SOLVED %}
+                    <div class="card__captured-icon" title="Вы захватили этот замок!">
+                        <img src="{% static 'images/captured.png' %}">
+                    </div>
+                {% elif card_status.available %}
+                    <div class="card__open-button">
+                        <span>
+                            <a href="#">Открыть</a>
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="card__open-info" title="Для открытия этой задачи надо иметь 3 меча, 2 катапульты и 4 ружья">
+                        Для открытия нужно иметь:
+                        {% for cr in card_status.card.get_needs %}
+                            <div class="card__open-info__weapons">
+                                {% for i in cr.count|times %}
+                                    {% with resource_id=cr.resource.id|stringformat:'s' %}
+                                        {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
+                                            <img src="{% static resource_path %}">
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <div class="card__open-info__weapons">
+                            <img src="{% static 'images/weapons/2.png' %}">
+                            <img src="{% static 'images/weapons/2.png' %}">
+                        </div>
+                        <div class="card__open-info__weapons">
+                            <img src="{% static 'images/weapons/4.png' %}">
+                            <img src="{% static 'images/weapons/4.png' %}">
+                            <img src="{% static 'images/weapons/4.png' %}">
+                            <img src="{% static 'images/weapons/4.png' %}">
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="card__footer">
+                    <span>
+                        {{ card_status.card.ejudge_short_name }}. {{ card_status.card.name }}
+                    </span>
+                </div>
+                </div> <!-- .card -->
+            {% endfor %}
+            <br/>
+        {% endfor %}
+    </div> <!-- .table -->
 
 <table border="1">
   {% for card_statuses in card_statuses_by_level %}

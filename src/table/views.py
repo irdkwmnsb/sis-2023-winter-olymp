@@ -134,6 +134,7 @@ def get_user_result(user, contest, problem_statuses):
         'country_statuses': country_statuses,
         'debug': country_statuses,
         'resources': resources,
+        'ProblemState': ProblemState,
     }
 
 
@@ -160,6 +161,9 @@ class ProblemState(Enum):
     NOT_ATTEMPTED = 0
     ATTEMPTED = 1
     SOLVED = 2
+
+
+ProblemState.do_not_call_in_templates = True
 
 
 class ProblemStatus:

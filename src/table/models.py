@@ -6,7 +6,7 @@ class Resource(models.Model):
     name_acc_one = models.CharField(max_length=255, help_text='Например, (одну) пушку')
     name_acc_two = models.CharField(max_length=255, help_text='Например, (две) пушки')
     name_acc_five = models.CharField(max_length=255, help_text='Например, (пять) пушек')
-    color = models.CharField(max_length=10, help_text='blue, color, red или green')
+    color = models.CharField(max_length=10, help_text='blue, yellow, red или green')
 
     def __str__(self):
         return self.name
