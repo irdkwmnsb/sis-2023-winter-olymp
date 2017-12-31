@@ -195,6 +195,17 @@ body {
 	height: 100%;
 }
 
+.table__header a {
+    color: white;
+    font-size: 18px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.table__header a:hover {
+    text-decoration: underline;    
+}
+
 .table__header .table__header__weapon {
 	display: inline-block;
 	margin-right: 10px;

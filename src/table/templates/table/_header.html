@@ -4,9 +4,15 @@
 {% if user.is_authenticated %}
     <div class="table__header">
         <div class="table__header__team">
-            {{ user.first_name }} {{ user.last_name }}
+            {{ user.first_name|get_team_name }} {{ user.last_name|get_team_name }}
         </div>
         <div class="table__header__right">
+            {% if contest_started %}
+                <a href="{% url 'table:index' %}">Главная</a>
+                <a href="{% url 'table:rules' %}">Правила</a>
+                <a href="{% url 'table:monitor' %}">Монитор</a>
+            {% endif %}
+
             {% for resource in resources %}
                 {% with resource_count=inventory|get_item:resource.id %}
                     <div class="table__header__weapon color-{{ resource.color }}" title="У вас {{ resource_count }} {{ resource|select_resource_name:resource_count }}">

@@ -100,3 +100,11 @@ def get_name_by_count(names, count):
     if prelast == 1:
         return names[2] % count
     return names[0] % count
+
+
+@register.filter
+def get_team_name(full_name: str):
+    idx = full_name.rfind('(')
+    if idx > 0:
+        return full_name[:idx].strip()
+    return full_name
