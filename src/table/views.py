@@ -89,7 +89,7 @@ def read_statement(request, problem_id):
     problem_statuses_by_user = load_from_ejudge_runs(user)
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
     user_result = get_result(contest, problem_statuses)
-    cards = Card.objects.filter(ejudge_short_name=problem_id)
+    cards = Card.objects.filter(ejudge_short_name=problem_id, contest__id=contest.id)
     if len(cards) == 0:
         return HttpResponseNotFound()
     card = cards[0]
