@@ -118,6 +118,11 @@ body {
 	cursor: pointer;
 }
 
+.card .card__open-button span:hover,
+.card .card__open-button span:active {
+    background-color: #ddeedd;
+}
+
 .card .card__open-button span {
 	padding: 4px 17px;
     border: 1px solid #1D380E;
@@ -188,6 +193,17 @@ body {
 	right: 0;
 	top: 0;
 	height: 100%;
+}
+
+.table__header a {
+    color: white;
+    font-size: 18px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.table__header a:hover {
+    text-decoration: underline;    
 }
 
 .table__header .table__header__weapon {

@@ -26,7 +26,7 @@ SECRET_KEY = '=s2^n#we8blg(92#$sf9et%wtg!ikx2kod0(-$$3@!_(ab1s&+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,6 +135,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 
 LOGIN_URL = '/users/login/'
 LOGOUT_URL = '/users/logout/'
@@ -150,7 +151,7 @@ else:
         raise Exception('Problems statements (settings.PROBLEMS_STATEMENTS_DIR) exists but is not a directory')
 
 
-EJUDGE_CONTEST_ID = 25801
+EJUDGE_CONTEST_ID = 31001
 EJUDGE_SERVE_CFG = os.path.join(BASE_DIR, '..', 'serve.cfg')
 # EJUDGE_SERVE_CFG = '/home/judges/%06d/conf/serve.cfg' % EJUDGE_CONTEST_ID
 EJUDGE_SERVE_CFG_ENCODING = 'utf-8'

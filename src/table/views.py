@@ -78,7 +78,8 @@ def monitor(request, contest_id=-1):
         'contest': contest,
         'resources': resources,
         'inventory': my_results.get('inventory', None),
-        'score': my_results.get('score', None)
+        'score': my_results.get('score', None),
+        'contest_started': True,
     })
 
 
@@ -89,7 +90,7 @@ def read_statement(request, problem_id):
     problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
     user_result = get_result(contest, problem_statuses)
     cards = Card.objects.filter(ejudge_short_name=problem_id)
-    if len(cards) != 1:
+    if len(cards) == 0:
         return HttpResponseNotFound()
     card = cards[0]
     if not user_result['card_statuses'].get(card.id).available:
@@ -231,3 +232,14 @@ def load_from_ejudge_runs(user=None):
             problem_status.state = ProblemState.ATTEMPTED
             problem_status.time = run.time
     return problems_by_user
+
+
+def rules(request):
+    user = request.user
+    contest = get_contest(user.username)
+    problem_statuses_by_user = load_from_ejudge_runs(user)
+    problem_statuses = problem_statuses_by_user.get(user.info.ejudge_user_id, {})
+
+    context = get_result(contest, problem_statuses)
+    context['contest_started'] = True
+    return render(request, 'table/rules.html', context)
