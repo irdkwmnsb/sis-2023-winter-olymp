@@ -61,9 +61,9 @@ body {
 }
 
 .card .card__header .card__header__flag img {
-	width: 27px;
-	height: auto;	
-	margin-right: 2px;
+    width: auto;
+    height: 22px;
+    margin-right: 2px;
 	margin-left: -4px;
 }
 
@@ -71,8 +71,13 @@ body {
 	position: absolute;
 	right: 0;
 	margin-right: 12px;
-	font-family: "Bahnschrift";
+    font-family: "Bahnschrift", sans-serif;
 	font-size: 20px;
+}
+
+.card .card__header .card__header__weapons img {
+    height: 22px;
+    width: auto;
 }
 
 .card:not(.passed) .card__header .card__header__score {
@@ -143,7 +148,7 @@ body {
 .card .card__captured-icon {
 	text-align: center;
 	padding-top: 20px;
-	height: 122px;
+	height: 123px;
 	width: 140px;
 	padding-left: 10px;
 	background-color: rgba(220, 255, 220, 0.8);
@@ -180,8 +185,8 @@ body {
 
 .table__header .table__header__right {
 	position: absolute;
-	right: 0px;
-	top: 0px;
+	right: 0;
+	top: 0;
 	height: 100%;
 }
 
@@ -192,7 +197,8 @@ body {
 }
 
 .table__header .table__header__weapon img {
-
+    height: 20px;
+    width: auto;
 }
 
 .table__header .table__header__weapon span {

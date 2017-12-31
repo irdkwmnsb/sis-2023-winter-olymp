@@ -16,7 +16,7 @@
                         {% with resource_count=inventory|get_item:resource.id %}
                             <div class="table__header__weapon color-{{ resource.color }}" title="У вас {{ resource_count }} {{ resource|select_resource_name:resource_count }}">
                                 {% with resource_id=resource.id|stringformat:'s' %}
-                                    {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
+                                    {% with resource_path='images/weapons/'|add:resource_id|add:'@2x.png' %}
                                         <img src="{% static resource_path %}">
                                     {% endwith %}
                                 {% endwith %}
@@ -44,7 +44,7 @@
                     <div class="card__header">
                         <div class="card__header__flag" title="Этот замок находится в {{ card_status.card.country.name_gen }}">
                             {% with country_id=card_status.card.country.id|stringformat:'s' %}
-                                {% with country_path='images/flags/'|add:country_id|add:'.png' %}
+                                {% with country_path='images/flags/'|add:country_id|add:'@2x.png' %}
                                     <img src="{% static country_path %}">
                                 {% endwith %}
                             {% endwith %}
@@ -53,7 +53,7 @@
                             {% for cr in card_status.card.get_gives %}
                                 {% for i in cr.count|times %}
                                     {% with resource_id=cr.resource.id|stringformat:'s' %}
-                                        {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
+                                        {% with resource_path='images/weapons/'|add:resource_id|add:'@2x.png' %}
                                             <img src="{% static resource_path %}">
                                         {% endwith %}
                                     {% endwith %}
@@ -102,25 +102,4 @@
             {% endfor %}
         </div> <!-- .cards_wrapper -->
     </div> <!-- .table -->
-
-<table border="1">
-  {% for card_statuses in card_statuses_by_level %}
-  <tr>
-    {% for card_status in card_statuses %}
-    <td>
-      Задача {{card_status.card.name}} ({{card_status.card.ejudge_short_name}})<br/>
-      country: {{card_status.card.country.name}}<br/>
-      needs: {{card_status.needs_str}}<br/>
-      gives: {{card_status.gives_str}}<br/>
-      score: {{card_status.card.score}}<br/>
-      status: {{card_status.problem_status.state}} at {{card_status.problem_status.time}}<br/>
-      available: {{card_status.available}}<br/>
-      <a href="/statement/{{card_status.card.ejudge_short_name}}">statement</a>
-    </td>    
-    {% endfor %}
-  </tr>
-  {% endfor %}
-</table>
-<br/><br/>
-Debug: {{ debug }}<br/>
 {% endblock %}
