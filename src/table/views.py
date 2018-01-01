@@ -17,11 +17,13 @@ from . import models
 
 
 def get_contest(user_login, default_contest_id=-1):
+    if default_contest_id != -1:
+        return VirtualContest.objects.filter(id=default_contest_id).first()
     if user_login is not None:
         for contest in models.VirtualContest.objects.all():
             if user_login.startswith(contest.login_prefix):
                 return contest
-    return VirtualContest.objects.filter(id=default_contest_id).first()
+    return None
 
 
 class CountryStatus:
