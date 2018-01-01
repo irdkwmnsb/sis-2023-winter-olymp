@@ -15,6 +15,7 @@
                 <a href="{% url 'table:index' %}">Главная</a>
                 <a href="{% url 'table:rules' %}">Правила</a>
                 <a href="{% url 'table:monitor' %}">Монитор</a>
+                <a href="{% url 'users:logout' %}">Выход</a>
             {% endif %}
 
             {% for resource in resources %}
