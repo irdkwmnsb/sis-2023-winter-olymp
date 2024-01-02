@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import logging
 import glob
+from distutils.dir_util import copy_tree
 import json
 
 CONTEST_DIR = 'polygon-contest'
@@ -33,7 +34,7 @@ def build_with_text(text, replace_data, result, section='', problem_name=''):
     os.chdir(BUILD_DIR)
     logging.info('Compile problem %s' % problem_name)
     for _ in range(2):
-        subprocess.check_output(['pdflatex', 'compile.tex'])
+        subprocess.check_output(['pdflatex', 'compile.tex', '--shell-escape'])
     os.chdir(cwd)
 
     shutil.copy(os.path.join(BUILD_DIR, 'compile.pdf'), os.path.join(FILES_DIR, result))
@@ -48,6 +49,7 @@ def main():
             line = line.strip().split('\t')
             id_by_name[line[11]] = line[2]
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)s] %(message)s')
+    logging.info("%s", id_by_name)
     if not os.path.exists(FILES_DIR):
         logging.info('Create folder for output files: %s' % FILES_DIR)
         os.mkdir(FILES_DIR)
@@ -87,11 +89,12 @@ def main():
 
             problem_name = os.path.basename(problem_dir)
             problem_id = id_by_name[problem_name]
+            copy_tree(statement_dir, BUILD_DIR)
             data = data.replace('%NAME%', name).replace('%INPUT_FILE%', input_file).replace('%OUTPUT_FILE%', output_file).\
                         replace('%TIME_LIMIT%', time_limit).replace('%MEMORY_LIMIT%', memory_limit).\
                         replace('%ID%', problem_id).\
                         replace('%PROBLEM_COUNTER%', str(problem_counter)).\
-                        replace('%STATEMENT_DIR%', os.path.join('..', statement_dir).replace('\\', '/') + '/')
+                        replace('%STATEMENT_DIR%', statement_dir.replace('\\', '/') + '/')
 
             build_with_text(data, legend + '\n\\InputFile\n' + input_format + '\n\\OutputFile\n' + output_format +
                 "\\begin{example}" + samples +"\\end{example}\n" + notes,

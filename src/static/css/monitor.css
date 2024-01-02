@@ -17,3 +17,7 @@
 .monitor .last-accepted-time {
     color: #ccc;
 }
+
+th img {
+	width: 32px;
+}

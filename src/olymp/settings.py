@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=s2^n#we8blg(92#$sf9et%wtg!ikx2kod0(-$$3@!_(ab1s&+'
+SECRET_KEY = '=s2sn#we8blg(92#$1f9et%wtg!ikx23od0(-$$3@!_(ab1s&+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,10 +86,10 @@ DATABASES = {
     },
     'ejudge': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ejudgedata',
-        'USER': 'olymp_winter2017',
-        'PASSWORD': '0X62t2gvyJzCW0y15znA',
-        'HOST': 'ejudge.lksh.ru',
+        'NAME': 'ejudge',
+        'USER': 'w2023',
+        'PASSWORD': 'w2023-olymp',
+        'HOST': '192.168.32.207',
         'PORT': '3306',
     }
 }
@@ -157,6 +157,7 @@ EJUDGE_SERVE_CFG = os.path.join(BASE_DIR, '..', 'serve.cfg')
 EJUDGE_SERVE_CFG_ENCODING = 'utf-8'
 
 CONTEST_START_TIME = datetime.datetime(2023, 12, 31, 16, 45, 0)
+# CONTEST_START_TIME = datetime.datetime(2023, 12, 31, 13, 0, 0)
 CONTEST_DURATION = 225
 
 MAXIMUM_PENALTY = 0.7

@@ -7,7 +7,10 @@
 
         <div class="login-form">
             <h1>Добро пожаловать<br>на&nbsp;новогоднюю олимпиаду</h1>
-            <form action="{% url 'users:login' %}" method="POST">
+            <form action="{% url 'users:login' %}" method="POST" style="    display: flex;
+            flex-direction: column;
+            align-items: center;
+        ">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button role="button">Войти</button>

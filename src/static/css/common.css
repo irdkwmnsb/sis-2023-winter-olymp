@@ -1,5 +1,6 @@
 html, body {
 	font-family: 'Myriad Pro', 'Arial', sans-serif;
+    min-height: 100%;
 }
 
 .color-blue { color: #4788C7; }

@@ -13,56 +13,54 @@
                 {% for card_statuses in card_statuses_by_level %}
                     {% for card_status in card_statuses %}
                         {% with card_id=card_status.card.photo|stringformat:'s' %}
-                            {% with card_path='images/castles/'|add:card_id|add:'.jpg' %}
+                            {% with card_path='images/castles/'|add:card_id|add:'.png.jpg' %}
                                 <div class="card {% if card_status.problem_status.state == ProblemState.SOLVED %}passed{% elif card_status.available %}available{% else %}not-available{% endif %}" style="background-image: url('{% static card_path %}');">
                             {% endwith %}
                         {% endwith %}
                         <div class="card__header">
-                            <div class="card__header__flag" title="Этот замок находится в {{ card_status.card.country.name_gen }}">
+                            <div class="card__header__flag" title="Этот сражение находится в {{ card_status.card.country.name_gen }}">
                                 {% with country_id=card_status.card.country.id|stringformat:'s' %}
                                     {% with country_path='images/flags/'|add:country_id|add:'@2x.png' %}
                                         <img src="{% static country_path %}">
                                     {% endwith %}
                                 {% endwith %}
                             </div>
-                            <div class="card__header__weapons" title="Захватив этот замок вы получите {{ card_status.card.get_gives_description }}">
+                            <div class="card__header__weapons" title="Победив в этом сражении вы получите {{ card_status.card.get_gives_description }}">
                                 {% for cr in card_status.card.get_gives %}
-                                    {% for i in cr.count|times %}
                                         {% with resource_id=cr.resource.id|stringformat:'s' %}
-                                            {% with resource_path='images/weapons/'|add:resource_id|add:'@2x.png' %}
+                                            {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
                                                 <img src="{% static resource_path %}">
                                             {% endwith %}
                                         {% endwith %}
-                                    {% endfor %}
+                                        x {{ cr.count }}
                                 {% endfor %}
                             </div>
-                            <div class="card__header__score" title="Захватив этот замок {% if card_status.card.score == 0 %}вы не получите монет{% elif card_status.card.score == 1 %}вы получите +1 монету{% else %}вы получите +{{ card_status.card.score }} монет{% if card_status.card.score >= 2 and card_status.card.score <= 4 %}ы{% endif %}{% endif %}
+                            <div class="card__header__score" title="Победив в этом сражении {% if card_status.card.score == 0 %}вы не получите монет{% elif card_status.card.score == 1 %}вы получите +1 монету{% else %}вы получите +{{ card_status.card.score }} монет{% if card_status.card.score >= 2 and card_status.card.score <= 4 %}ы{% endif %}{% endif %}
                                 ">
                                 +{{ card_status.card.score }}
                             </div>
                         </div>
                         {% if card_status.problem_status.state == ProblemState.SOLVED %}
-                            <div class="card__captured-icon" title="Вы захватили этот замок!">
+                            <div class="card__captured-icon" title="Вы победили в этом сражении!">
                                 <img src="{% static 'images/captured.png' %}">
                             </div>
                         {% elif card_status.available %}
                             <div class="card__open-button">
                                 <span>
-                                    <a href="{% url 'table:statement' problem_id=card_status.card.ejudge_short_name %}" target="_hover">Захватить</a>
+                                    <a href="{% url 'table:statement' problem_id=card_status.card.ejudge_short_name %}" target="_hover">Выдвигаться</a>
                                 </span>
                             </div>
                         {% else %}
-                            <div class="card__open-info" title="Для подхода к этому замку надо иметь {{ card_status.card.get_needs_description }}">
+                            <div class="card__open-info" title="Для начала сражения надо иметь {{ card_status.card.get_needs_description }}">
                                 Для открытия нужно иметь:
                                 {% for cr in card_status.card.get_needs %}
                                     <div class="card__open-info__weapons">
-                                        {% for i in cr.count|times %}
                                             {% with resource_id=cr.resource.id|stringformat:'s' %}
                                                 {% with resource_path='images/weapons/'|add:resource_id|add:'.png' %}
                                                     <img src="{% static resource_path %}">
                                                 {% endwith %}
                                             {% endwith %}
-                                        {% endfor %}
+                                            x {{ cr.count }}
                                     </div>
                                 {% endfor %}
                             </div>

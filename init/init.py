@@ -17,6 +17,8 @@ max_row = 4
 min_column = -5
 HEADER =\
 """
+import django
+django.setup()
 from table.models import *
 
 def make_resource(**kwargs):
@@ -40,22 +42,62 @@ Country.objects.all().delete()
 VirtualContest.objects.all().delete()
 NeedsCardResource.objects.all().delete()
 NeedsCardResource.objects.all().delete()
-c_junior = VirtualContest(id=1, name="Олимпиада B'-C-C'", login_prefix="sis-2017-4")
+c_junior_test = VirtualContest(id=3, name="Младшая зимняя олимпиада (ТЕСТ)", login_prefix="sis-2023-0junior")
+c_junior_test.save()
+c_adult_test = VirtualContest(id=4, name="Старшая зимняя олимпиада (ТЕСТ)", login_prefix="sis-2023-0adult")
+c_adult_test.save()
+c_junior = VirtualContest(id=1, name="Младшая зимняя олимпиада", login_prefix="sis-2023-w-jun")
 c_junior.save()
-c_adult = VirtualContest(id=2, name="Олимпиада A-A'-B", login_prefix="sis-2017-5")
+c_adult = VirtualContest(id=2, name="Старшая зимняя олимпиада", login_prefix="sis-2023-w-sen")
 c_adult.save()
-r0 = make_resource(id=1,name='пушка',name_acc_one='пушку',name_acc_two='пушки',name_acc_five='пушек', color='green', gender=Gender.FEMALE.value)
-r1 = make_resource(id=2,name='катапульта',name_acc_one='катапульту',name_acc_two='катапульты',name_acc_five='катапульт', color='yellow', gender=Gender.FEMALE.value)
-r2 = make_resource(id=3,name='меч',name_acc_one='меч',name_acc_two='меча',name_acc_five='мечей', color='blue', gender=Gender.MALE.value)
-r3 = make_resource(id=4,name='ружьё',name_acc_one='ружьё',name_acc_two='ружья',name_acc_five='ружей', color='red', gender=Gender.NEUTER.value)
+r0 = make_resource(id=1,name='поток',name_acc_one='поток',name_acc_two='потока',name_acc_five='потоков', color='green', gender=Gender.MALE.value)
+r1 = make_resource(id=2,name='ссылка',name_acc_one='ссылку',name_acc_two='ссылки',name_acc_five='ссылок', color='yellow', gender=Gender.FEMALE.value)
+r2 = make_resource(id=3,name='указатель',name_acc_one='указатель',name_acc_two='указателя',name_acc_five='указателей', color='blue', gender=Gender.MALE.value)
+r3 = make_resource(id=4,name='вода',name_acc_one='воду',name_acc_two='воды',name_acc_five='воды', color='red', gender=Gender.FEMALE.value)
 
-gb = make_country(id=1, name='Великобритания', name_gen='Великобритании', bonus=5)
-de = make_country(id=2, name='Германия', name_gen='Германии', bonus=5)
-ch = make_country(id=3, name='Швейцария', name_gen='Швейцарии', bonus=5)
-cz = make_country(id=4, name='Чехия', name_gen='Чехии', bonus=5)
-ro = make_country(id=5, name='Румыния', name_gen='Румынии', bonus=5)
-it = make_country(id=6, name='Италия', name_gen='Италии', bonus=5)
-fr = make_country(id=7, name='Франция', name_gen='Франции', bonus=5)
+no = make_country(id=1, name='Русь', name_gen='Руси', bonus=5)
+# Челябинская операция
+# Битва за Каменск-Уральский
+# Холмистая засада
+# Долина Демидовская
+# Судьбоносный поход в Нижний Тагил
+# Пермский рубеж
+zb = make_country(id=2, name='Забайкалье', name_gen='Забайкалья', bonus=5)
+# Битва за Забайкальск
+# Хилокский перевал
+# Борьба за Улан-Удэ
+# Тункинская долина
+# Байкальский фронт
+pb = make_country(id=3, name='Прибайкалье', name_gen='Прибайкалья', bonus=5)
+# Битва на мысе Лисий
+# Схватка у подножия хребта Каменск
+# Борьба за поселок Хужир
+# Решающее столкновение в Северобайкальске
+# Прибайкальский фронт
+kk = make_country(id=4, name='Кавказ', name_gen='Кавказа', bonus=5)
+# Хребет Бештау
+# Битва за Эльбрус
+# Долина реки Терек
+# Страстная Долина
+# Крепость Хашури
+pm = make_country(id=5, name='Примосковье', name_gen='Примосковья', bonus=5)
+# Битва у подножия горы Лисья
+# Тверская стенка
+# Борьба за Чёрное озеро
+# Коломенская крепость
+# Подмосковный фронт
+bl = make_country(id=6, name='Прибалтика', name_gen='Прибалтики', bonus=5)
+# Сражение у побережья Лиепаи
+# Захват Яунгшилы
+# Битва за Куршскую косу
+# Нацеленность на Нарву
+# Балтийский фронт
+mo = make_country(id=7, name='Луна', name_gen='Луны', bonus=5)
+# Море Тишини
+# Кратер Хармонии
+# Долина Рассвета
+# Гора Аристарх
+# Лунное ущелье
 """
 
 
@@ -73,7 +115,9 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
                             needs_adult, gives_adult, score_adult, polygon_short_name)= line[:12]
             for contest, level, needs, gives, score in [
                             ('c_junior', int(level_src), needs_junior, gives_junior, score_junior),
-                            ('c_adult', int(level_src) - 1, needs_adult, gives_adult, score_adult)]:
+                            ('c_junior_test', int(level_src), needs_junior, gives_junior, score_junior),
+                            ('c_adult', int(level_src) - 1, needs_adult, gives_adult, score_adult),
+                            ('c_adult_test', int(level_src) - 1, needs_adult, gives_adult, score_adult)]:
                 if needs == 'xxxx':
                     continue
                 print('card = make_card(ejudge_short_name="%s", name="%s", score=%d, level=%d, country=%s, photo=%d, polygon_short_name="%s")' % (
@@ -89,4 +133,6 @@ with open('init_script.py', 'w', encoding='utf-8') as output_file:
                         print ('GivesCardResource(card=card, resource=r%d, count=%d).save()' % (i, cnt), file=output_file)
                 print ('', file=output_file)
         print ('c_junior.save()', file=output_file)
+        print ('c_junior_test.save()', file=output_file)
         print ('c_adult.save()', file=output_file)
+        print ('c_adult_test.save()', file=output_file)

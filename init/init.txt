@@ -1,35 +1,32 @@
-1	cz	4	Státní hrad Křivoklát	1	0000	0100	1	xxxx	xxxx	x	dessert-maker	1_Чехия_Кршивоклат.jpg
-2	ch	12	Château de La Bâtiaz	1	0000	1010	0	xxxx	xxxx	x	hamming	ch_shato_de_la_botiaz.webp
-3	fr	2	Château de Najac	1	0000	1100	0	xxxx	xxxx	x	third-buy-discount	fr_chateau_de_najac.jpg
-4	fr	3	Château d'Anjony	1	0000	0100	1	xxxx	xxxx	x	digital-display	fr_chato_danjony.jpg
-5	de	1	Schloß Hohenschwangau	1	0000	1000	1	xxxx	xxxx	x	kek	ger_hohenschwangau.jpg
-6	de	5	Burg Hohenzollern	1	0000	0100	0	xxxx	xxxx	x	straight-array	ger_hohenzollern.webp
-7	ch	32	Schloß Habsburg	1	0000	1000	1	xxxx	xxxx	x	keyboard	ch_habsburg.jpeg
-8	ro	22	Castelul Corvinilor	1	0000	0110	0	xxxx	xxxx	x	ones	1_Румыния_Корвинов.jpg
-												
-10	gb	7	Bodiam Castle	2	1010	0101	2	0000	0100	1	palindr	1_Англия_ Бодиам.jpg
-11	ch	6	Château de Chillon	2	1200	0111	1	0000	1010	0	word-math	ch_chillon.jpg
-12	cz	9	Zámek Orlík	2	2110	0021	2	0000	1100	0	gentest	1_Чехия_Орлик.jpg
-13	fr	11	Château de Commarque	2	0200	0111	2	0000	0100	1	crosses	fr_commarque.JPG
-14	de	10	Löwenburg Kassel	2	0110	1002	3	0000	1000	1	good-and-bad-postmen	ger_loewenburg.jpg
-15	it	8	Castello di Miramare	2	2000	0021	1	0000	0100	0	string-io	it_miramare.jpeg
-16	it	31	Castello del Valentino	2	1310	0012	2	0000	1000	0	highway	it_valentiono.jpg
-26	it	25	Castello Sforzesco	2	1100	0021	2	0000	0110	0	twohoses	it_sfortsa.jpg
-												
-19	gb	13	Warwick Castle	3	0007	1100	5	1010	0101	2	governor	1_Англия_Warwick.jpg
-20	gb	28	Leeds Castle	3	0552	1010	4	1200	0111	1	divisibility	1_Англия_Лидс.jpg
-21	ro	27	Cetatea Devei	3	4043	1001	5	2110	0021	2	distinct-dice	1_Румыния_Дева.jpg
-22	ro	21	Castelul Peleş	3	0732	0110	4	0200	0111	2	anti	1_Румыния_Пелеш.jpg
-23	de	19	Burg Eltz	3	4042	0101	4	0110	1002	3	substring	ger_eltz.jpg
-24	fr	26	Hohkönigsburg	3	0452	0011	3	2000	0021	1	rube-goldberg	fr_hohkönigsburg.jpeg
-25	it	20	Castello Scaligero	3	3054	0002	3	1310	0012	2	hol	it_scaligero.jpg
-17	ch	18	Basilique de Valère	3	0452	0002	4	1100	0021	1	ineq	ch_valere.jpg
-												
-28	gb	23	Alnwick Castle	4	xxxx	xxxx	x	0007	1100	5	fractal	1_Англия_ Алнвик.jpg
-29	gb	30	Castell Rhaglan	4	xxxx	xxxx	x	0552	1010	4	warehouse-job	1_Англия_Раглан.jpg
-30	ro	14	Castelul Bran	4	xxxx	xxxx	x	4043	1001	5	theorem	1_Румыния_Бран.jpg
-31	ro	17	Cetatea Poenari	4	xxxx	xxxx	x	0732	0110	4	lateagain	1_Румыния_Поенари.jpg
-32	cz	15	Zámek Hluboká	4	xxxx	xxxx	x	4042	0101	4	epig	1_Чехия_ Глубока-над-Влтавой.jpg
-33	cz	24	Hrad Karlštejn	4	xxxx	xxxx	x	0452	0011	3	protect	1_Чехия_Karlshteyn.jpg
-34	cz	16	Hrad Búzov	4	xxxx	xxxx	x	3054	0002	3	trenches	1_Чехия_Бузов.jpg
-35	ch	29	Château de Tourbillon	4	xxxx	xxxx	x	0452	0002	4	pending-tasks	ch_turbiyon.jpg
+1	no	13	Битва на ферме	1	0000	1100	3	0000	1110	1	replace-digits-eleven
+2	no	21	Ящер на холме	1	0000	0110	1	xxxx	xxxx	x	canaries
+3	no	22	Прогулка по лесу	1	0000	1010	2	xxxx	xxxx	x	beautiful-strings
+4	no	28	Сбор припасов	1	xxxx	xxxx	x	0000	0110	2	gt-lt
+5	no	5	Военная хитрость древних русов (валун)	1	xxxx	xxxx	x	0000	1010	2	shift-and-reverse
+6	no	9	Помощь Перуна	2	1000	0220	2	1000	0220	2	pairs-of-perpendicular-vectors
+7	no	15	Дуэль	2	0010	3110	3	0010	3110	5	beresta
+8	no	8	Неожиданная помощь	2	1010	1210	2	1010	1210	2	newyear-tree
+9	no	7	Заморская подмога	2	1110	0001	6	1110	0001	7	uwuanime
+10	no	20	Гонка на птеродимирах	2	2010	3100	3	xxxx	xxxx	x	navigator
+11	no	16	Черное озеро	2	0220	1230	3	xxxx	xxxx	x	frog
+12	no	19	Подводная стычка	2	2110	2220	4	2110	2220	3	cave
+13	no	27	Битва на мосту	2	xxxx	xxxx	x	2010	3100	4	neural-xor
+14	no	29	Стратегическое совещание	2	xxxx	xxxx	x	0220	1230	4	dividing-a-string
+15	no	10	Контратака под Тывой	3	6330	0001	5	6330	0001	8	white-word
+16	no	14	Судьбоносный поход в Нижний Тагил	3	0700	3030	4	0700	3030	3	strange-probability
+17	no	11	Помощь Сварога	3	4440	2220	5	4440	2220	4	winter-olymp-wikipedia-quiz-2023-part-one
+18	no	6	Династический брак	3	3540	1330	5	3540	1330	4	wayback-machine
+19	no	23	Битва за Улан-Уде	3	1160	3310	6	xxxx	xxxx	x	tree
+20	no	25	Спасение Олега и Михайло из плена Ящеров	3	5550	2320	5	xxxx	xxxx	x	messages
+21	no	26	Осада Эльбруса	3	4540	1210	4	xxxx	xxxx	x	ascii-sides
+22	no	24	Русы и ящеры встречают Новый Год	3	6660	3130	5	xxxx	xxxx	x	bit-div-mul-parity
+23	no	30	Подлая засада	3	xxxx	xxxx	x	1160	3310	7	folia
+24	no	3	Пир древних русов	3	xxxx	xxxx	x	5550	2320	6	greedy-division
+25	no	31	Взятие высоты	3	xxxx	xxxx	x	4540	1210	5	shortest-path-on-line
+26	no	1	Танцевальный баттл	3	xxxx	xxxx	x	6660	3130	6	distinct-numbers
+27	no	12	Путешествие на Луну	4	9660	0001	7	9660	0001	9	antti-laaksonen-binary-guess
+28	no	17	Битва за Москву	4	5490	0000	9	xxxx	xxxx	x	parking
+29	no	18	Высадка в подмосковье	4	7960	0000	9	xxxx	xxxx	x	milk-scheduling
+30	no	2	Защита Гипербореи	4	7770	0000	9	7770	0000	8	three
+31	no	4	Тверская Стенка	4	xxxx	xxxx	x	5490	0000	10	nand-tree
+32	no	32	Абордаж	4	xxxx	xxxx	x	7960	0000	10	one-or-two
